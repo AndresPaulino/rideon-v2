@@ -1,4 +1,4 @@
-import { Home as HomePage } from './pages';
+import { Home as HomePage } from 'pages';
 const routes = [
   {
     path: '/',
