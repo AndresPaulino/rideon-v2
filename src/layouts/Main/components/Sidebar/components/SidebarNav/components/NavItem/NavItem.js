@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { alpha, useTheme } from '@mui/material/styles';
 import Accordion from '@mui/material/Accordion';
@@ -12,32 +13,31 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import NestedItem from '../NestedItem';
 
-const NavItem = ({ title, items }) => {
+const NavItem = ({ title, items, activeLink, href }) => {
   const theme = useTheme();
-  const [activeLink, setActiveLink] = useState('');
+  const navigate = useNavigate();
+  const [active, setActive] = useState('');
+
+  const hasActiveLink = () => {
+    return active === activeLink;
+  };
+
   useEffect(() => {
-    setActiveLink(window && window.location ? window.location.pathname : '');
+    setActive(window && window.location ? window.location.pathname : '');
   }, []);
 
-  const hasActiveLink = () =>
-    items ? items.find((i) => i.href === activeLink) : null;
+  const handleClick = () => {
+    navigate(href);
+  };
 
   return (
     <Box>
-      <Accordion
-        disableGutters
-        elevation={0}
-        sx={{ backgroundColor: 'transparent' }}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          sx={{ padding: 0 }}
-        >
+      <Accordion disableGutters elevation={0} sx={{ backgroundColor: 'transparent' }}>
+        <AccordionSummary aria-controls='panel1a-content' id='panel1a-header' sx={{ padding: 0 }}>
           <Typography
             fontWeight={hasActiveLink() ? 600 : 400}
             color={hasActiveLink() ? 'primary' : 'text.primary'}
+            onClick={handleClick}
           >
             {title}
           </Typography>
@@ -54,22 +54,12 @@ const NavItem = ({ title, items }) => {
                       fullWidth
                       sx={{
                         justifyContent: 'flex-start',
-                        color:
-                          activeLink === p.href
-                            ? theme.palette.primary.main
-                            : theme.palette.text.primary,
-                        backgroundColor:
-                          activeLink === p.href
-                            ? alpha(theme.palette.primary.main, 0.1)
-                            : 'transparent',
+                        color: activeLink === p.href ? theme.palette.primary.main : theme.palette.text.primary,
+                        backgroundColor: activeLink === p.href ? alpha(theme.palette.primary.main, 0.1) : 'transparent',
                         fontWeight: activeLink === p.href ? 600 : 400,
                       }}
                     >
-                      {p.title && p.nested ? (
-                        <NestedItem title={p.title} items={p.nested} />
-                      ) : (
-                        p.title
-                      )}
+                      {p.title && p.nested ? <NestedItem title={p.title} items={p.nested} /> : p.title}
                     </Button>
                   </Grid>
                 ))

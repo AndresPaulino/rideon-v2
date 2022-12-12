@@ -9,28 +9,14 @@ import { NavItem } from './components';
 
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
   const theme = useTheme();
-  const {
-    about: about,
-    techandpartnerships: techandpartnerships,
-    products: products,
-    solutions: solutions,
-    careers: careers,
-    blog: blogPages,
-    claims: claims,
-  } = pages;
 
   return (
-    <Box
-      display={'flex'}
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      width={1}
-    >
+    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
       <Box
         display={'flex'}
-        component="a"
-        href="/"
-        title="NSD"
+        component='a'
+        href='/'
+        title='NSD'
         width={{
           xs: 100,
           md: 120,
@@ -38,7 +24,8 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
       >
         <Box
           component={'img'}
-          src={'https://nsdstaticasset.blob.core.windows.net/assets/nsd.png'}
+          // get logo from public folder
+          src={'/assets/logo.svg'}
           height={1}
           width={1}
         />
@@ -52,61 +39,18 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         }}
         alignItems={'center'}
       >
-        <Box>
-          <NavItem
-            title={'About Us'}
-            id={'landing-pages'}
-            items={about}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Products & Services'}
-            id={'company-pages'}
-            items={products}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Industry Solutions'}
-            id={'account-pages'}
-            items={solutions}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Partnerships'}
-            id={'secondary-pages'}
-            items={techandpartnerships}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Social'}
-            id={'blog-pages'}
-            items={blogPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Careers'}
-            id={'portfolio-pages'}
-            items={careers}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Login'}
-            id={'claims-pages'}
-            items={claims}
-            colorInvert={colorInvert}
-          />
+        <Box
+          display={'flex'}
+          component='nav'
+          sx={{
+            '& > * + *': {
+              marginLeft: 2,
+            },
+          }}
+        >
+          {pages.map((page) => (
+            <NavItem title={page.title} activeLink={page.href} href={page.href} id={'home'} colorInvert={colorInvert} />
+          ))}
         </Box>
       </Box>
       <Box
@@ -120,7 +64,7 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
       >
         <Button
           onClick={() => onSidebarOpen()}
-          aria-label="Menu"
+          aria-label='Menu'
           variant={'outlined'}
           sx={{
             borderRadius: 2,

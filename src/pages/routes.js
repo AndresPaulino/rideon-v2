@@ -3,7 +3,7 @@ const routes = [
   {
     path: '/',
     renderer: (params = {}) => <HomePage {...params} />,
-  },
+    },
 ];
 
 export default routes;
