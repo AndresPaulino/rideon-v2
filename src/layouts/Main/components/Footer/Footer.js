@@ -34,81 +34,54 @@ const Footer = () => {
             sm: 'row',
           }}
         >
-          <Box display={'flex'} component="a" href="/" title="NSD" width={80}>
-            <Box
-              component={'img'}
-              src={
-                'https://nsdstaticasset.blob.core.windows.net/assets/nsd.png'
-              }
-              // src={
-              //   mode === 'light'
-              //     ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-              //     : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-              // }
-              height={1}
-              width={1}
-            />
+          <Box display={'flex'} component='a' href='/' title='NSD' width={80}>
+            <Box component={'img'} src={'/assets/logo.svg'} height={1} width={1} />
           </Box>
           <Box>
             <IconButton
-              href={'https://twitter.com/nsd_motorclub?lang=en'}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Twitter"
-              size="small"
+              href={'/'}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='Twitter'
+              size='small'
               color={'primary'}
             >
               <TwitterIcon />
             </IconButton>
             <IconButton
-              href={'https://www.facebook.com/NationSafeDrivers/'}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              size="small"
+              href={'/'}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='Facebook'
+              size='small'
               color={'primary'}
             >
               <FacebookIcon />
             </IconButton>
             <IconButton
-              href={'https://www.linkedin.com/company/nation-safe-drivers/'}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              size="small"
-              color={'primary'}
-            >
-              <LinkedIn />
-            </IconButton>
-            <IconButton
-              href={'https://www.instagram.com/nationsafedrivers/'}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              size="small"
+              href={'/'}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='Instagram'
+              size='small'
               color={'primary'}
             >
               <InstagramIcon />
             </IconButton>
             <IconButton
-              href={'https://www.youtube.com/channel/UCpfCLgklqjvdXpCAMQHQAhA'}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="YouTube"
-              size="small"
+              href={'/'}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='YouTube'
+              size='small'
               color={'primary'}
             >
               <YouTube />
             </IconButton>
           </Box>
-          <Box display="flex" flexWrap={'wrap'} alignItems={'center'}>
+          <Box display='flex' flexWrap={'wrap'} alignItems={'center'}>
             <Box marginTop={1}>
-              <Button
-                variant="text"
-                size="small"
-                color="primary"
-                onClick={scrollToTop}
-              >
+              <Button variant='text' size='small' color='primary' onClick={scrollToTop}>
                 <KeyboardDoubleArrowUpIcon />
               </Button>
             </Box>
@@ -116,22 +89,16 @@ const Footer = () => {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Typography
-          align={'center'}
-          variant={'subtitle2'}
-          color="text.secondary"
-          gutterBottom
-        >
-          &copy; NSD. 2022, Nation Safe Drivers. All rights reserved
+        <Typography align={'center'} variant={'subtitle2'} color='text.secondary' gutterBottom>
+          &copy; RideOn. 2022, All rights reserved
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        {/* Same props as typography */}
         <Tooltip
-          title="Cigna coverage details"
-          placement="bottom"
+          title='Privacy Policy'
+          placement='bottom'
           arrow
-          color="primary"
+          color='primary'
           TransitionComponent={Zoom}
           sx={{
             [`& .${tooltipClasses.tooltip}`]: {
@@ -148,11 +115,11 @@ const Footer = () => {
             variant={'subtitle1'}
             color={'primary'}
             gutterBottom
-            href="https://www.cigna.com/legal/compliance/machine-readable-files"
+            href='/'
             display={'block'}
-            target="_blank"
+            target='_blank'
           >
-            Transparency in Coverage
+            Privacy Policy
           </Link>
         </Tooltip>
       </Grid>

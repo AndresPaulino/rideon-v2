@@ -39,15 +39,11 @@ const Hero = () => {
             display={'flex'}
             justifyItems={'center'}
             alignItems={'center'}
-            textAlign={'center'}
           >
             A place to meet and connect with other riders. <br /> Find a ride or create a ride today.
           </Typography>
         </Box>
         <Box display='flex' flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'stretched', sm: 'center' }}>
-          <Button variant='contained' color='primary' size='large' fullWidth={isMd ? false : true}>
-            Create a Ride
-          </Button>
           <Box
             component={Button}
             variant='contained'
@@ -57,7 +53,21 @@ const Hero = () => {
             marginLeft={{ sm: 2 }}
             fullWidth={isMd ? false : true}
             onClick={() => {
-              history('/become-a-partner');
+              history('/create-a-ride');
+            }}
+          >
+            Create a Ride
+          </Box>
+          <Box
+            component={Button}
+            variant='contained'
+            color='white'
+            size='large'
+            marginTop={{ xs: 2, sm: 0 }}
+            marginLeft={{ sm: 2 }}
+            fullWidth={isMd ? false : true}
+            onClick={() => {
+              history('/find-a-ride');
             }}
           >
             Find a Ride
