@@ -43,11 +43,17 @@ const Form = () => {
     password: '',
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     const { firstName, lastName, email, password } = values;
 
-    register(firstName, lastName, email, password);
-    navigate('/', { replace: true });
+    try {
+      await register(firstName, lastName, email, password);
+      navigate('/', { replace: true });
+    } catch (error) {
+      // set error message
+      formik.setFieldError('email', 'Email already in use.');
+      console.log(error);
+    }
   };
 
   const formik = useFormik({

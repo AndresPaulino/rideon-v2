@@ -7,12 +7,23 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   GoogleAuthProvider,
+  GithubAuthProvider,
+  TwitterAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { getFirestore, collection, doc, getDoc, setDoc, getDocsFromServer } from 'firebase/firestore';
 // config
 import { FIREBASE_API } from '../config';
+// import { _invoices } from '_mock/arrays';
+
+// ----------------------------------------------------------------------
+
+// NOTE:
+// We only build demo at basic level.
+// Customer will need to do some extra handling yourself if you want to extend the logic and other features...
+
+// ----------------------------------------------------------------------
 
 const initialState = {
   isInitialized: false,
@@ -45,6 +56,10 @@ const AUTH = getAuth(firebaseApp);
 const DB = getFirestore(firebaseApp);
 
 const GOOGLE_PROVIDER = new GoogleAuthProvider();
+
+const GITHUB_PROVIDER = new GithubAuthProvider();
+
+const TWITTER_PROVIDER = new TwitterAuthProvider();
 
 AuthProvider.propTypes = {
   children: PropTypes.node,
@@ -99,18 +114,32 @@ export function AuthProvider({ children }) {
 
   const loginWithGoogle = () => signInWithPopup(AUTH, GOOGLE_PROVIDER);
 
-  // REGISTER
-  const register = (firstName, lastName, email, password) =>
-    createUserWithEmailAndPassword(AUTH, email, password).then(async (res) => {
-      const userRef = doc(collection(DB, 'users'), res.user?.uid);
+  const loginWithGithub = async () => signInWithPopup(AUTH, GITHUB_PROVIDER);
 
+  const loginWithTwitter = async () => signInWithPopup(AUTH, TWITTER_PROVIDER);
+
+  // REGISTER
+  const register = async (firstName, lastName, email, password) => {
+    try {
+      const result = await createUserWithEmailAndPassword(AUTH, email, password);
+      const userRef = doc(DB, 'users', result.user.uid);
       await setDoc(userRef, {
-        uid: res.user?.uid,
+        firstName,
+        lastName,
         email,
-        displayName: `${firstName} ${lastName}`,
         role: 'user',
+        photoURL: '/static/mock-images/avatars/avatar_default.jpg',
+        cover: '/static/mock-images/covers/cover_default.jpg',
+        createdAt: new Date(),
+        isVerified: false,
+        isOnline: true,
+        isSuspended: false,
+        isBanned: false,
       });
-    });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // LOGOUT
   const logout = () => signOut(AUTH);
@@ -122,6 +151,8 @@ export function AuthProvider({ children }) {
         method: 'firebase',
         login,
         loginWithGoogle,
+        loginWithGithub,
+        loginWithTwitter,
         register,
         logout,
         profile: state.user,
