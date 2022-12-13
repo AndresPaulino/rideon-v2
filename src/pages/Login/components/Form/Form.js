@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
@@ -8,6 +9,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+
+import { useAuthContext } from 'hooks/useAuthContext';
 
 const validationSchema = yup.object({
   email: yup.string().trim().email('Please enter a valid email address').required('Email is required.'),
@@ -18,13 +21,25 @@ const validationSchema = yup.object({
 });
 
 const Form = () => {
+  const { login } = useAuthContext();
+  const navigate = useNavigate();
   const initialValues = {
     email: '',
     password: '',
   };
 
   const onSubmit = (values) => {
-    return values;
+    const { email, password } = values;
+
+    login(email, password)
+      .then(() => {
+        navigate('/', { replace: true });
+      })
+      .catch((error) => {
+        // set error message
+        formik.setFieldError('email', error.message);
+        console.log(error);
+      });
   };
 
   const formik = useFormik({

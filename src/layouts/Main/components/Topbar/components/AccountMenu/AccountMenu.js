@@ -13,8 +13,13 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
+// Context
+import { useAuthContext } from 'hooks/useAuthContext';
 
 export default function AccountMenu() {
+  const { logout } = useAuthContext();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -22,6 +27,10 @@ export default function AccountMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    logout();
+    navigate('/', { replace: true });
   };
   return (
     <Fragment>
@@ -88,7 +97,7 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize='small' />
           </ListItemIcon>

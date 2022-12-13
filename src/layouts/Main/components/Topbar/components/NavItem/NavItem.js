@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -44,12 +43,6 @@ const NavItem = ({ title, id, href, activeLink, colorInvert = false }) => {
       </Box>
     </Box>
   );
-};
-
-NavItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  items: PropTypes.array.isRequired,
-  colorInvert: PropTypes.bool,
 };
 
 export default NavItem;

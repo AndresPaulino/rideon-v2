@@ -1,11 +1,5 @@
 import PropTypes from 'prop-types';
-import {
-  createContext,
-  useEffect,
-  useReducer,
-  useCallback,
-  useState,
-} from 'react';
+import { createContext, useEffect, useReducer, useCallback, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -16,14 +10,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  collection,
-  doc,
-  getDoc,
-  setDoc,
-  getDocsFromServer,
-} from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, setDoc, getDocsFromServer } from 'firebase/firestore';
 // config
 import { FIREBASE_API } from '../config';
 
@@ -113,7 +100,7 @@ export function AuthProvider({ children }) {
   const loginWithGoogle = () => signInWithPopup(AUTH, GOOGLE_PROVIDER);
 
   // REGISTER
-  const register = (email, password, firstName, lastName) =>
+  const register = (firstName, lastName, email, password) =>
     createUserWithEmailAndPassword(AUTH, email, password).then(async (res) => {
       const userRef = doc(collection(DB, 'users'), res.user?.uid);
 

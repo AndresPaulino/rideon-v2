@@ -56,7 +56,7 @@ const Login = () => {
                       position: { xs: 'relative', md: 'absolute' },
                       clipPath: {
                         xs: 'none',
-                        md: 'polygon(10% 0%, 100% 0, 100% 100%, 0% 100%)',
+                        md: 'polygon(10% 0%, 100% 0, 100% 100%, 10% 100%)',
                       },
                       shapeOutside: {
                         xs: 'none',

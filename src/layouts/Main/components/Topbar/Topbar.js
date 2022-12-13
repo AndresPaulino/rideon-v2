@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -62,7 +61,14 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           }}
         >
           {pages.map((page) => (
-            <NavItem title={page.title} activeLink={page.href} href={page.href} id={'home'} colorInvert={colorInvert} />
+            <NavItem
+              title={page.title}
+              key={page.title}
+              activeLink={page.href}
+              href={page.href}
+              id={'home'}
+              colorInvert={colorInvert}
+            />
           ))}
         </Box>
         <Box marginLeft={2}>
@@ -105,12 +111,6 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
       </Box>
     </Box>
   );
-};
-
-Topbar.propTypes = {
-  onSidebarOpen: PropTypes.func,
-  pages: PropTypes.object,
-  colorInvert: PropTypes.bool,
 };
 
 export default Topbar;

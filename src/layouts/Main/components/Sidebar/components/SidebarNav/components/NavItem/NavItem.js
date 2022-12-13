@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { alpha, useTheme } from '@mui/material/styles';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -78,12 +77,6 @@ const NavItem = ({ title, items, activeLink, href }) => {
       </Accordion>
     </Box>
   );
-};
-
-NavItem.propTypes = {
-  items: PropTypes.array.isRequired,
-  title: PropTypes.string.isRequired,
-  onClose: PropTypes.func,
 };
 
 export default NavItem;
