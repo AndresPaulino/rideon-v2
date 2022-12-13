@@ -17,12 +17,24 @@ const FindRide = () => {
           variant='h4'
           data-aos={'fade-up'}
           gutterBottom
-          color={'primary.main'}
+          color={'common.white'}
           sx={{
             fontWeight: 700,
           }}
         >
-          Join the RideOn family
+          Join the
+          <Typography
+            component={'span'}
+            variant={'inherit'}
+            color={'primary.main'}
+            sx={{
+              fontFamily: 'Dancing Script',
+            }}
+          >
+            {' '}
+            RideOn
+          </Typography>{' '}
+          family
         </Typography>
         <Typography variant='h6' color={'common.white'} data-aos={'fade-up'}>
           Make new friends and ride together anywhere in the world. Your next adventure awaits. RideOn.

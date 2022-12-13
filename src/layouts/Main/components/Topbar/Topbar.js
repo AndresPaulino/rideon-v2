@@ -6,6 +6,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { NavItem } from './components';
+import { Typography } from '@mui/material';
 
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
   const theme = useTheme();
@@ -18,13 +19,26 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         href='/'
         title='RideOn'
         width={80}
+        sx={{
+          textDecoration: 'none',
+          textShadow: `1px 0 10px darkgray, 0 1px 10px black, 1px 0 10px black, 0 1px 10px black`,
+        }}
       >
-        <Box
-          component={'img'}
-          src={'/assets/logo.svg'}
-          height={1}
-          width={1}
-        />
+        <Box component={'img'} src={'/assets/logo.svg'} height={1} width={1} />
+        <Typography
+          color={'primary'}
+          variant={'inherit'}
+          sx={{
+            fontFamily: 'Dancing Script',
+            fontSize: '2rem',
+            textAlign: 'center',
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex',
+          }}
+        >
+          RideOn
+        </Typography>
       </Box>
       <Box
         sx={{

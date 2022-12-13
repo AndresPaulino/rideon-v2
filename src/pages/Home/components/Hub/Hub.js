@@ -78,7 +78,14 @@ const Hero = () => {
           <Box marginBottom={2}>
             <Typography variant='h4' color='common.white' sx={{ fontWeight: 700 }}>
               Find your next motorcycle ride or event with like-minded people near you with{' '}
-              <Typography color={'primary'} component={'span'} variant={'inherit'}>
+              <Typography
+                color={'primary'}
+                component={'span'}
+                variant={'inherit'}
+                sx={{
+                  fontFamily: 'Dancing Script',
+                }}
+              >
                 RideOn
               </Typography>
             </Typography>

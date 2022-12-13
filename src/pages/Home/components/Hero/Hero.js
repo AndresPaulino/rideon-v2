@@ -26,7 +26,16 @@ const Hero = () => {
       >
         <Box marginBottom={2} display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Typography variant='h3' color='white' sx={{ fontWeight: 700, alignItems: 'center' }}>
-            <Typography color={'primary'} component={'span'} variant={'inherit'}>
+            <Typography
+              color={'primary'}
+              component={'span'}
+              variant={'inherit'}
+              sx={{
+                textShadow: `1px 0 20px darkgray, 0 1px 20px darkgray, 1px 0 20px black, 0 1px 20px black`,
+                fontFamily: 'Dancing Script',
+                fontWeight: 700,
+              }}
+            >
               RideOn
             </Typography>
           </Typography>
@@ -39,6 +48,9 @@ const Hero = () => {
             display={'flex'}
             justifyItems={'center'}
             alignItems={'center'}
+            sx={{
+              textShadow: `1px 0 20px #eee, 0 1px 20px black, 1px 0 20px black, 0 1px 20px black`,
+            }}
           >
             A place to meet and connect with other riders. <br /> Find a ride or create a ride today.
           </Typography>
