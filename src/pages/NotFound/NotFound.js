@@ -25,52 +25,24 @@ const NotFound = () => {
         }}
       >
         <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
-          <Box
-            display={'flex'}
-            flexDirection={{ xs: 'column', md: 'row' }}
-            position={'relative'}
-          >
-            <Box
-              width={1}
-              order={{ xs: 2, md: 1 }}
-              display={'flex'}
-              alignItems={'center'}
-            >
+          <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} position={'relative'}>
+            <Box width={1} order={{ xs: 2, md: 1 }} display={'flex'} alignItems={'center'}>
               <Container>
                 <Box>
                   <Typography
-                    variant="h1"
+                    variant='h1'
                     component={'h1'}
                     align={isMd ? 'left' : 'center'}
                     sx={{ fontWeight: 700 }}
+                    color={'common.white'}
                   >
                     404
                   </Typography>
-                  <Typography
-                    variant="h6"
-                    component="p"
-                    color="text.secondary"
-                    align={isMd ? 'left' : 'center'}
-                  >
-                    Oops! Looks like you followed a bad link.
-                    <br />
-                    If you think this is a problem with us, please{' '}
-                    <Link href={''} underline="none">
-                      tell us
-                    </Link>
+                  <Typography variant='h6' component='p' color='text.secondary' align={isMd ? 'left' : 'center'}>
+                    Oops! Looks like you may have taken a wrong turn and ended up here. Don't worry... it happens to the best of us. 
                   </Typography>
-                  <Box
-                    marginTop={4}
-                    display={'flex'}
-                    justifyContent={{ xs: 'center', md: 'flex-start' }}
-                  >
-                    <Button
-                      component={Link}
-                      variant="contained"
-                      color="primary"
-                      size="large"
-                      href={'/'}
-                    >
+                  <Box marginTop={4} display={'flex'} justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                    <Button component={Link} variant='contained' color='primary' size='large' href={'/'}>
                       Back home
                     </Button>
                   </Box>
@@ -127,19 +99,16 @@ const NotFound = () => {
                     >
                       <Box
                         component={'img'}
-                        loading="lazy"
+                        loading='lazy'
                         src={
-                          'https://assets.maccarianagency.com/backgrounds/img23.jpg'
+                          'https://images.unsplash.com/photo-1596440114792-d3e0ae1763f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                         }
                         height={{ xs: 'auto', md: 1 }}
                         maxHeight={{ xs: 300, md: 1 }}
                         width={1}
                         maxWidth={1}
                         sx={{
-                          filter:
-                            theme.palette.mode === 'dark'
-                              ? 'brightness(0.7)'
-                              : 'none',
+                          filter: theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
                         }}
                       />
                     </Box>
