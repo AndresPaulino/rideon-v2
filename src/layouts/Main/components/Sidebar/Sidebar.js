@@ -22,6 +22,8 @@ const Sidebar = ({ pages, open, variant, onClose }) => {
         sx={{
           height: '100%',
           padding: 1,
+          color: 'text.primary',
+          bgcolor: 'background.paper',
         }}
       >
         <SidebarNav pages={pages} />

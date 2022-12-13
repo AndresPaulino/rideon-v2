@@ -10,8 +10,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import NestedItem from '../NestedItem';
 
 const NavItem = ({ title, items, activeLink, href }) => {
   const theme = useTheme();
@@ -34,15 +32,26 @@ const NavItem = ({ title, items, activeLink, href }) => {
     <Box>
       <Accordion disableGutters elevation={0} sx={{ backgroundColor: 'transparent' }}>
         <AccordionSummary aria-controls='panel1a-content' id='panel1a-header' sx={{ padding: 0 }}>
-          <Typography
-            fontWeight={hasActiveLink() ? 600 : 400}
-            color={hasActiveLink() ? 'primary' : 'text.primary'}
+          <Button
+            size={'large'}
+            component={'a'}
+            href={activeLink.href}
+            fullWidth
             onClick={handleClick}
+            sx={{
+              justifyContent: 'flex-start',
+              color: hasActiveLink() ? theme.palette.primary.main : 'common.white',
+              backgroundColor: hasActiveLink() ? alpha(theme.palette.primary.main, 0.1) : 'transparent',
+              '&:hover': {
+                backgroundColor: alpha(theme.palette.primary.main, 0.9),
+              },
+              fontWeight: activeLink === activeLink.href ? 600 : 400,
+            }}
           >
             {title}
-          </Typography>
+          </Button>
         </AccordionSummary>
-        <AccordionDetails sx={{ padding: 0 }}>
+        {/* <AccordionDetails sx={{ padding: 0 }}>
           <Grid container spacing={1}>
             {items
               ? items.map((p, i) => (
@@ -65,7 +74,7 @@ const NavItem = ({ title, items, activeLink, href }) => {
                 ))
               : null}
           </Grid>
-        </AccordionDetails>
+        </AccordionDetails> */}
       </Accordion>
     </Box>
   );
