@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { NavItem } from './components';
+import { NavItem, AccountMenu } from './components';
 import { Typography } from '@mui/material';
 
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
@@ -61,6 +61,9 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           {pages.map((page) => (
             <NavItem title={page.title} activeLink={page.href} href={page.href} id={'home'} colorInvert={colorInvert} />
           ))}
+        </Box>
+        <Box marginLeft={2}>
+          <AccountMenu colorInvert={colorInvert} />
         </Box>
       </Box>
       <Box
