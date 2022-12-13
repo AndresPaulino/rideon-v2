@@ -22,11 +22,7 @@ const validationSchema = yup.object({
     .min(2, 'Please enter a valid name')
     .max(50, 'Please enter a valid name')
     .required('Please specify your last name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
+  email: yup.string().trim().email('Please enter a valid email address').required('Email is required.'),
   password: yup
     .string()
     .required('Please specify your password')
@@ -52,7 +48,7 @@ const Form = () => {
   });
 
   return (
-    <Box>
+    <Box bgcolor={'alternate.main'} padding={{ xs: 4, sm: 6 }} borderRadius={2}>
       <Box marginBottom={4}>
         <Typography
           sx={{
@@ -62,19 +58,17 @@ const Form = () => {
           gutterBottom
           color={'text.secondary'}
         >
-          Signup
+          Register
         </Typography>
         <Typography
-          variant="h4"
+          variant='h4'
           sx={{
             fontWeight: 700,
           }}
         >
           Create an account
         </Typography>
-        <Typography color="text.secondary">
-          Fill out the form to get started.
-        </Typography>
+        <Typography color='text.secondary'>Fill out the form to get riding.</Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
@@ -83,15 +77,13 @@ const Form = () => {
               Enter your first name
             </Typography>
             <TextField
-              label="First name *"
-              variant="outlined"
+              label='First name *'
+              variant='outlined'
               name={'firstName'}
               fullWidth
               value={formik.values.firstName}
               onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
+              error={formik.touched.firstName && Boolean(formik.errors.firstName)}
               helperText={formik.touched.firstName && formik.errors.firstName}
             />
           </Grid>
@@ -100,8 +92,8 @@ const Form = () => {
               Enter your last name
             </Typography>
             <TextField
-              label="Last name *"
-              variant="outlined"
+              label='Last name *'
+              variant='outlined'
               name={'lastName'}
               fullWidth
               value={formik.values.lastName}
@@ -115,8 +107,8 @@ const Form = () => {
               Enter your email
             </Typography>
             <TextField
-              label="Email *"
-              variant="outlined"
+              label='Email *'
+              variant='outlined'
               name={'email'}
               fullWidth
               value={formik.values.email}
@@ -130,8 +122,8 @@ const Form = () => {
               Enter your password
             </Typography>
             <TextField
-              label="Password *"
-              variant="outlined"
+              label='Password *'
+              variant='outlined'
               name={'password'}
               type={'password'}
               fullWidth
@@ -143,7 +135,7 @@ const Form = () => {
           </Grid>
           <Grid item container xs={12}>
             <Box
-              display="flex"
+              display='flex'
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'center' }}
               justifyContent={'space-between'}
@@ -154,12 +146,7 @@ const Form = () => {
               <Box marginBottom={{ xs: 1, sm: 0 }}>
                 <Typography variant={'subtitle2'}>
                   Already have an account?{' '}
-                  <Link
-                    component={'a'}
-                    color={'primary'}
-                    href={'/signin-cover'}
-                    underline={'none'}
-                  >
+                  <Link component={'a'} color={'primary'} href={'/signin-cover'} underline={'none'}>
                     Login.
                   </Link>
                 </Typography>
@@ -169,25 +156,10 @@ const Form = () => {
               </Button>
             </Box>
           </Grid>
-          <Grid
-            item
-            container
-            xs={12}
-            justifyContent={'center'}
-            alignItems={'center'}
-          >
-            <Typography
-              variant={'subtitle2'}
-              color={'text.secondary'}
-              align={'center'}
-            >
+          <Grid item container xs={12} justifyContent={'center'} alignItems={'center'}>
+            <Typography variant={'subtitle2'} color={'text.secondary'} align={'center'}>
               By clicking "Sign up" button you agree with our{' '}
-              <Link
-                component={'a'}
-                color={'primary'}
-                href={'/company-terms'}
-                underline={'none'}
-              >
+              <Link component={'a'} color={'primary'} href={'/company-terms'} underline={'none'}>
                 company terms and conditions.
               </Link>
             </Typography>
