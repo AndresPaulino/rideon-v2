@@ -69,12 +69,15 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
       <Box
         sx={{
           display: {
-            xs: 'block',
+            xs: 'flex',
             lg: 'none',
           },
         }}
         alignItems={'center'}
       >
+        <Box marginRight={2}>
+          <AccountMenu colorInvert={colorInvert} />
+        </Box>
         <Button
           onClick={() => onSidebarOpen()}
           aria-label='Menu'
