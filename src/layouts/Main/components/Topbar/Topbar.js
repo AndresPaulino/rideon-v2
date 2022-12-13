@@ -8,8 +8,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem, AccountMenu } from './components';
 import { Typography } from '@mui/material';
 
+import { useAuthContext } from 'hooks/useAuthContext';
+
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
   const theme = useTheme();
+  const { profile } = useAuthContext();
 
   return (
     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
@@ -63,7 +66,11 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           ))}
         </Box>
         <Box marginLeft={2}>
-          <AccountMenu colorInvert={colorInvert} />
+          {profile ? (
+            <AccountMenu colorInvert={colorInvert} profile={profile} />
+          ) : (
+            <NavItem title={'Login'} activeLink={'/login'} href={'/login'} id={'home'} colorInvert={colorInvert} />
+          )}
         </Box>
       </Box>
       <Box
@@ -76,7 +83,11 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         alignItems={'center'}
       >
         <Box marginRight={2}>
-          <AccountMenu colorInvert={colorInvert} />
+          {profile ? (
+            <AccountMenu colorInvert={colorInvert} profile={profile} />
+          ) : (
+            <NavItem title={'Login'} activeLink={'/login'} href={'/login'} id={'home'} colorInvert={colorInvert} />
+          )}
         </Box>
         <Button
           onClick={() => onSidebarOpen()}
