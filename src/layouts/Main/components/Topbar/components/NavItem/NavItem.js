@@ -20,11 +20,24 @@ const NavItem = ({ title, id, href, activeLink, colorInvert = false }) => {
     navigate(href);
   };
 
-  const linkColor = colorInvert ? 'common.white' : 'text.primary';
+  const linkColor = colorInvert ? 'common.white' : 'common.white';
 
   return (
     <Box>
-      <Box display={'flex'} alignItems={'center'} aria-describedby={id} sx={{ cursor: 'pointer' }}>
+      <Box
+        display={'flex'}
+        alignItems={'center'}
+        sx={{
+          bgcolor: hasActiveLink() ? 'primary.main' : 'transparent',
+          '&:hover': {
+            bgcolor: 'primary.main',
+          },
+          cursor: 'pointer',
+          borderRadius: 1,
+          p: 1,
+          m: 1,
+        }}
+      >
         <Typography fontWeight={hasActiveLink() ? 'bold' : 400} color={linkColor} onClick={handleClick}>
           {title}
         </Typography>

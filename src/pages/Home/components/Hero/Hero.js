@@ -16,72 +16,55 @@ const Hero = () => {
   });
 
   return (
-    <Grid container spacing={4}>
-      <Grid item container xs={12} md={6} alignItems={'center'}>
-        <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
-          <Box marginBottom={2}>
-            <Typography variant='h3' color='white' sx={{ fontWeight: 700 }}>
-              The power of Client Qore is{' '}
-              <Typography color={'primary'} component={'span'} variant={'inherit'}></Typography>
-            </Typography>
-          </Box>
-          <Box marginBottom={3}>
-            <Typography variant='h6' component='p' color='white'>
-              Designed and built to give you the info you need to make data driven decisions. We’ve got you covered.
-            </Typography>
-          </Box>
-          <Box
-            display='flex'
-            flexDirection={{ xs: 'column', sm: 'row' }}
-            alignItems={{ xs: 'stretched', sm: 'flex-start' }}
-          >
-            <Button variant='contained' color='primary' size='large' fullWidth={isMd ? false : true}>
-              Explore Benefits
-            </Button>
-            <Box
-              component={Button}
-              variant='contained'
-              color='white'
-              size='large'
-              marginTop={{ xs: 2, sm: 0 }}
-              marginLeft={{ sm: 2 }}
-              fullWidth={isMd ? false : true}
-              onClick={() => {
-                history('/become-a-partner');
-              }}
-            >
-              Become a Partner
-            </Box>
-          </Box>
-        </Box>
-      </Grid>
-      <Grid
-        item
-        container
+    <Box height={'100%'} width={'100%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+      <Box
+        data-aos={isMd ? 'fade-right' : 'fade-up'}
+        display={'flex'}
+        flexDirection={'column'}
         alignItems={'center'}
         justifyContent={'center'}
-        xs={12}
-        md={6}
-        data-aos='flip-left'
-        data-aos-easing='ease-out-cubic'
-        data-aos-duration='2000'
       >
-        <Box
-          component={LazyLoadImage}
-          height={1}
-          width={1}
-          src={'https://res.cloudinary.com/drlyfc3tu/image/upload/v1660790376/dispatchDashboard_uonntz.png'}
-          alt='...'
-          effect='blur'
-          boxShadow={3}
-          borderRadius={2}
-          maxWidth={600}
-          sx={{
-            filter: theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
-          }}
-        />
-      </Grid>
-    </Grid>
+        <Box marginBottom={2} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+          <Typography variant='h3' color='white' sx={{ fontWeight: 700, alignItems: 'center' }}>
+            <Typography color={'primary'} component={'span'} variant={'inherit'}>
+              RideOn
+            </Typography>
+          </Typography>
+        </Box>
+        <Box marginBottom={3} display={'flex'} justifyItems={'center'} alignItems={'center'}>
+          <Typography
+            variant='h6'
+            component='p'
+            color='white'
+            display={'flex'}
+            justifyItems={'center'}
+            alignItems={'center'}
+            textAlign={'center'}
+          >
+            A place to meet and connect with other riders. <br /> Find a ride or create a ride today.
+          </Typography>
+        </Box>
+        <Box display='flex' flexDirection={{ xs: 'column', sm: 'row' }} alignItems={{ xs: 'stretched', sm: 'center' }}>
+          <Button variant='contained' color='primary' size='large' fullWidth={isMd ? false : true}>
+            Create a Ride
+          </Button>
+          <Box
+            component={Button}
+            variant='contained'
+            color='white'
+            size='large'
+            marginTop={{ xs: 2, sm: 0 }}
+            marginLeft={{ sm: 2 }}
+            fullWidth={isMd ? false : true}
+            onClick={() => {
+              history('/become-a-partner');
+            }}
+          >
+            Find a Ride
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

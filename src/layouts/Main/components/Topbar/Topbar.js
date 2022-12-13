@@ -16,15 +16,11 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
         display={'flex'}
         component='a'
         href='/'
-        title='NSD'
-        width={{
-          xs: 100,
-          md: 120,
-        }}
+        title='RideOn'
+        width={80}
       >
         <Box
           component={'img'}
-          // get logo from public folder
           src={'/assets/logo.svg'}
           height={1}
           width={1}

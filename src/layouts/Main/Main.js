@@ -38,6 +38,7 @@ const Main = ({ children, colorInvert = false, bgcolor = 'transparent' }) => {
 
   return (
     <Box paddingY={0}>
+      <Box bgcolor={bgcolor} position={'relative'} zIndex={theme.zIndex.appBar}></Box>
       <AppBar
         position={'sticky'}
         sx={{

@@ -1,117 +1,253 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
-import CountUp from 'react-countup';
-import VisibilitySensor from 'react-visibility-sensor';
+import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-
-const mock = [
-  {
-    title: '30',
-    subtitle:
-      'more than 30 million people count on us.',
-    suffix: 'M'
-  },
-  {
-    title: '60',
-    subtitle:
-      'more than 60 years of business and still rapidly growing.',
-    suffix: '+'
-  },
-  {
-    title: '95',
-    subtitle: 'more than 95% customer retention.',
-    suffix: '%'
-  }
-];
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 
 const Features = () => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true
+    defaultMatches: true,
   });
-
-  const [viewPortEntered, setViewPortEntered] = useState(false);
-  const setViewPortVisibility = (isVisible) => {
-    if (viewPortEntered) {
-      return;
-    }
-
-    setViewPortEntered(isVisible);
-  };
 
   return (
     <Box>
-      <Grid container spacing={4} direction={isMd ? 'row' : 'column-reverse'}>
-        <Grid item xs={12} md={6}>
-          <Box marginBottom={4}>
-            <Typography sx={{ fontWeight: 700 }} variant={'h4'} gutterBottom>
-              Why Nation Safe Drivers is so Important
-            </Typography>
-            <Typography variant={'h6'} component={'p'} color={'text.secondary'}>
-              Nation Safe Drivers (NSD) improves the operations of tens of millions of people,
-              institutions, and small businesses across North America. By joining the vast network
-              of NSD providers, companies like yours are entitled to a simple to use source of
-              revenue without increasing your budget by a penny.
-              <br />
-              <br />
-              NSD members will take advantage of higher commissions, superior products, innovative
-              technology, 24/7 service, instantaneous claims response and outstanding protection.
-              NSD has been an integral component of the auto industry for more than 60 years. As a
-              result, they are in an excellent position to complement your current benefits and
-              services with their infinite pool of supplemental products.
-            </Typography>
-          </Box>
-          <Grid container spacing={2}>
-            {mock.map((item, i) => (
-              <Grid key={i} item xs={12} md={4}>
-                <Typography variant='h4' color={'primary'} gutterBottom>
-                  <VisibilitySensor
-                    onChange={(isVisible) => setViewPortVisibility(isVisible)}
-                    delayedCall
-                  >
-                    <CountUp
-                      duration={2}
-                      end={viewPortEntered ? item.title : 0}
-                      start={0}
-                      suffix={item.suffix}
-                    />
-                  </VisibilitySensor>
-                </Typography>
-                <Typography color='text.secondary' component='p'>
-                  {item.subtitle}
-                </Typography>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          justifyContent='center'
-          alignItems='center'
-          xs={12}
-          md={6}
+      <Box marginBottom={4}>
+        <Typography
+          variant="h4"
+          align={'center'}
+          data-aos={'fade-up'}
+          gutterBottom
           sx={{
-            display: {
-              xs: 'none',
-              md: 'flex'
-            }
+            fontWeight: 700,
+            marginTop: theme.spacing(1),
           }}
         >
-          <Box component={Card} boxShadow={4} height={1} width={1}>
-            <Box
-              component={CardMedia}
-              height={1}
-              width={1}
-              minHeight={300}
-              image='https://images.unsplash.com/photo-1611448746128-7c39e03b71e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZHJpdmVyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
-            />
+          Always know what you'll pay.
+        </Typography>
+        <Typography
+          variant="h6"
+          align={'center'}
+          color={'text.secondary'}
+          data-aos={'fade-up'}
+        >
+          Once you're setup, instantly withdraw payments or deposit into your
+          bank
+          <br />
+          account within 2-3 business days.
+        </Typography>
+        <Box marginTop={2} display={'flex'} justifyContent={'center'}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={
+              <Box
+                component={'svg'}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                width={24}
+                height={24}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </Box>
+            }
+          >
+            Learn more
+          </Button>
+        </Box>
+      </Box>
+      <Grid container spacing={isMd ? 0 : 2}>
+        <Grid item xs={12} md={6}>
+          <Card data-aos={isMd ? 'fade-right' : 'fade-up'}>
+            <CardContent sx={{ padding: { sm: 4 } }}>
+              <Grid container spacing={4}>
+                <Grid item xs={12}>
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                  >
+                    <Typography
+                      variant={'h1'}
+                      sx={{ fontWeight: 700 }}
+                      color={'primary'}
+                    >
+                      15%
+                    </Typography>
+                    <Typography color={'text.secondary'}>
+                      per successful transaction
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                  >
+                    <Box color={theme.palette.primary.main}>
+                      <svg
+                        width={50}
+                        height={50}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+                        />
+                      </svg>
+                    </Box>
+                    <Typography sx={{ fontWeight: 700 }} align={'center'}>
+                      Account creation
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                  >
+                    <Box color={theme.palette.primary.main}>
+                      <svg
+                        width={50}
+                        height={50}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                        />
+                      </svg>
+                    </Box>
+                    <Typography sx={{ fontWeight: 700 }} align={'center'}>
+                      Professional account
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box display={'flex'} justifyContent={'center'}>
+                    <Typography
+                      variant={'caption'}
+                      align={'center'}
+                      color={'text.secondary'}
+                    >
+                      Included for 3 months, <br />
+                      then $2.5/monthly included VAT
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box marginTop={2} display={'flex'} justifyContent={'center'}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      endIcon={
+                        <Box
+                          component={'svg'}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          width={24}
+                          height={24}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"
+                          />
+                        </Box>
+                      }
+                    >
+                      Get started
+                    </Button>
+                  </Box>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item container xs={12} md={6} alignItems={'center'}>
+          <Box component={Card} bgcolor={theme.palette.primary.main}>
+            <CardContent
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: { sm: 4 },
+              }}
+            >
+              <Box color={theme.palette.common.white} marginBottom={4}>
+                <svg
+                  width={80}
+                  height={80}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
+                </svg>
+              </Box>
+              <Typography
+                variant={'h4'}
+                gutterBottom
+                sx={{ fontWeight: 600, color: theme.palette.common.white }}
+              >
+                Customized
+              </Typography>
+              <Typography
+                gutterBottom
+                align={'center'}
+                sx={{ color: theme.palette.common.white }}
+              >
+                Design a custom package for your business.
+              </Typography>
+              <Typography
+                align={'center'}
+                sx={{ color: theme.palette.common.white }}
+              >
+                Available for businesses with large payments volume or unique
+                business models.
+              </Typography>
+            </CardContent>
+            <Divider />
+            <CardActions sx={{ justifyContent: 'center' }}>
+              <Box
+                component={Button}
+                color={theme.palette.common.white}
+                size={'large'}
+              >
+                Contact sales
+              </Box>
+            </CardActions>
           </Box>
         </Grid>
       </Grid>
