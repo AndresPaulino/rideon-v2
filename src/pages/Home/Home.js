@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-import { Customization, Download, Hero, Hub, Partners } from './components';
+import { Customization, FindRide, Hero, Hub } from './components';
 
 const Home = () => {
   const theme = useTheme();
@@ -51,7 +51,7 @@ const Home = () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
             backgroundImage:
-              'url(https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)',
+              'url(https://images.unsplash.com/photo-1558980664-2cd663cf8dde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)',
             filter: theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
           }}
         />
@@ -93,7 +93,7 @@ const Home = () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center center',
             backgroundImage:
-              'url(https://images.unsplash.com/photo-1532102235608-dc8fc689c9ab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)',
+              'url(https://images.unsplash.com/photo-1558979159-2b18a4070a87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80)',
             filter: theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
           }}
         />
@@ -121,15 +121,7 @@ const Home = () => {
         </Box>
       </Box>
       <Container>
-        <Partners />
-      </Container>
-      <Box bgcolor={'alternate.main'}>
-        {/* <Container>
-          <Pricings />
-        </Container> */}
-      </Box>
-      <Container>
-        <Download />
+        <FindRide />
       </Container>
     </Main>
   );
