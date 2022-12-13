@@ -18,17 +18,8 @@ const Login = () => {
         }}
       >
         <Container paddingX={0} paddingY={0} maxWidth={{ sm: 1, md: 1236 }}>
-          <Box
-            display={'flex'}
-            flexDirection={{ xs: 'column', md: 'row' }}
-            position={'relative'}
-          >
-            <Box
-              width={1}
-              order={{ xs: 2, md: 1 }}
-              display={'flex'}
-              alignItems={'center'}
-            >
+          <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} position={'relative'}>
+            <Box width={1} order={{ xs: 2, md: 1 }} display={'flex'} alignItems={'center'}>
               <Container>
                 <Form />
               </Container>
@@ -83,19 +74,16 @@ const Login = () => {
                     >
                       <Box
                         component={'img'}
-                        loading="lazy"
+                        loading='lazy'
                         src={
-                          'https://assets.maccarianagency.com/backgrounds/img18.jpg'
+                          'https://images.pexels.com/photos/1413412/pexels-photo-1413412.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                         }
                         height={{ xs: 'auto', md: 1 }}
                         maxHeight={{ xs: 300, md: 1 }}
                         width={1}
                         maxWidth={1}
                         sx={{
-                          filter:
-                            theme.palette.mode === 'dark'
-                              ? 'brightness(0.7)'
-                              : 'none',
+                          filter: theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
                         }}
                       />
                     </Box>

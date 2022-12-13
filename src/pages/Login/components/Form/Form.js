@@ -10,11 +10,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
 const validationSchema = yup.object({
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
+  email: yup.string().trim().email('Please enter a valid email address').required('Email is required.'),
   password: yup
     .string()
     .required('Please specify your password')
@@ -38,7 +34,7 @@ const Form = () => {
   });
 
   return (
-    <Box>
+    <Box bgcolor={'alternate.main'} padding={{ xs: 4, sm: 6 }} borderRadius={2}>
       <Box marginBottom={4}>
         <Typography
           sx={{
@@ -51,16 +47,14 @@ const Form = () => {
           Login
         </Typography>
         <Typography
-          variant="h4"
+          variant='h4'
           sx={{
             fontWeight: 700,
           }}
         >
           Welcome back
         </Typography>
-        <Typography color="text.secondary">
-          Login to manage your account.
-        </Typography>
+        <Typography color='text.secondary'>Login to manage your account and start riding.</Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
@@ -69,8 +63,8 @@ const Form = () => {
               Enter your email
             </Typography>
             <TextField
-              label="Email *"
-              variant="outlined"
+              label='Email *'
+              variant='outlined'
               name={'email'}
               fullWidth
               value={formik.values.email}
@@ -81,7 +75,7 @@ const Form = () => {
           </Grid>
           <Grid item xs={12}>
             <Box
-              display="flex"
+              display='flex'
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'center' }}
               justifyContent={'space-between'}
@@ -89,24 +83,27 @@ const Form = () => {
               marginBottom={2}
             >
               <Box marginBottom={{ xs: 1, sm: 0 }}>
-                <Typography variant={'subtitle2'}>
-                  Enter your password
-                </Typography>
+                <Typography variant={'subtitle2'}>Enter your password</Typography>
               </Box>
               <Typography variant={'subtitle2'}>
                 <Link
                   component={'a'}
                   color={'primary'}
-                  href={'/password-reset-cover'}
+                  href={'/password-reset'}
                   underline={'none'}
+                  sx={{
+                    ':hover': {
+                      textDecoration: 'underline',
+                    },
+                  }}
                 >
                   Forgot your password?
                 </Link>
               </Typography>
             </Box>
             <TextField
-              label="Password *"
-              variant="outlined"
+              label='Password *'
+              variant='outlined'
               name={'password'}
               type={'password'}
               fullWidth
@@ -118,7 +115,7 @@ const Form = () => {
           </Grid>
           <Grid item container xs={12}>
             <Box
-              display="flex"
+              display='flex'
               flexDirection={{ xs: 'column', sm: 'row' }}
               alignItems={{ xs: 'stretched', sm: 'center' }}
               justifyContent={'space-between'}
@@ -132,10 +129,15 @@ const Form = () => {
                   <Link
                     component={'a'}
                     color={'primary'}
-                    href={'/signup-cover'}
+                    href={'/register'}
                     underline={'none'}
+                    sx={{
+                      ':hover': {
+                        textDecoration: 'underline',
+                      },
+                    }}
                   >
-                    Sign up here.
+                    Register here.
                   </Link>
                 </Typography>
               </Box>
