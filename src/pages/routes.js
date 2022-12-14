@@ -4,6 +4,7 @@ import {
   Register as RegisterPage,
   NotFound as NotFoundPage,
   PasswordReset as PasswordResetPage,
+  FindRideList as FindRideListPage,
 } from 'pages';
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
   {
     path: '/password-reset',
     renderer: (params = {}) => <PasswordResetPage {...params} />,
+  },
+  {
+    path: '/find-a-ride',
+    renderer: (params = {}) => <FindRideListPage {...params} />,
   },
   {
     path: '*',

@@ -3,3 +3,4 @@ export { default as Login } from './Login';
 export { default as NotFound } from './NotFound';
 export { default as PasswordReset } from './PasswordReset';
 export { default as Register } from './Register';
+export { default as FindRideList } from './FindRideList';
