@@ -16,6 +16,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import PersonIcon from '@mui/icons-material/Person';
 import FlagIcon from '@mui/icons-material/Flag';
 import InfoIcon from '@mui/icons-material/InfoOutlined';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const mockTags = ['tag1', 'tag2', 'tag3', 'tag4'];
 
@@ -159,6 +160,7 @@ const CardRight = () => {
           flexWrap: 'wrap',
         }}
       >
+        <LocalOfferIcon fontSize='small' sx={{ mr: 1, my: 'auto' }} />
         {mockTags.map((tag) => (
           <Chip
             label={tag}

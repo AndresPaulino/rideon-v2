@@ -3,16 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Box from '@mui/material/Box';
-import { RideCard } from './components';
+import Grid from '@mui/material/Grid';
+import { RideCard, FilterOptions } from './components';
 
 function FindRideList() {
   return (
     <Main>
-          <Container
-              bgcolor="white"
-          >
+      <Container bgcolor='white'>
         <Box>
-          <RideCard />
+          <Grid container spacing={2}>
+            <Grid item xs={12} lg={3}>
+              <FilterOptions />
+            </Grid>
+            <Grid item xs={12} lg={9}>
+              <RideCard />
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </Main>
