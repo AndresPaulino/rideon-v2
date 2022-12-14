@@ -9,6 +9,14 @@ import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import { Grid } from '@mui/material';
 
+// icons
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import PersonIcon from '@mui/icons-material/Person';
+import FlagIcon from '@mui/icons-material/Flag';
+import InfoIcon from '@mui/icons-material/Info';
+
 const mockTags = ['tag1', 'tag2', 'tag3', 'tag4'];
 
 const CardLeft = () => {
@@ -56,11 +64,12 @@ const CardMiddle = () => {
             }}
           >
             <Grid item minWidth={150}>
-              <Chip label='16 days left' />
+              <Chip icon={<ScheduleIcon />} label='16 days left' />
             </Grid>
-            <Grid item minWidth={150}>
+            <Grid item minWidth={150} display={'flex'}>
+              <InfoIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
-                Distance
+                View Details
               </Typography>
             </Grid>
           </Grid>
@@ -75,12 +84,14 @@ const CardMiddle = () => {
               flexDirection: 'row',
             }}
           >
-            <Grid item minWidth={150}>
+            <Grid item minWidth={150} display={'flex'}>
+              <CalendarMonthIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
                 Dec 24, 2022
               </Typography>
             </Grid>
-            <Grid item minWidth={150}>
+            <Grid item minWidth={150} display={'flex'}>
+              <PersonIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
                 22 participants
               </Typography>
@@ -109,14 +120,16 @@ const CardRight = () => {
       <Box>
         <Button variant='contained'>Join Ride</Button>
       </Box>
-      <Box pt={4}>
+      <Box pt={4} display={'flex'}>
+        <FlagIcon sx={{ mr: 1 }} />
         <Typography xs={4} sx={{ fontSize: 16, textAlign: 'right' }} color='text.secondary' gutterBottom>
           14752 SW 26th St,
           <br />
           Miami, FL 33175
         </Typography>
       </Box>
-      <Box pt={2}>
+      <Box pt={2} display={'flex'}>
+        <SportsScoreIcon sx={{ mr: 1 }} />
         <Typography xs={4} sx={{ fontSize: 16, textAlign: 'right' }} color='text.secondary' gutterBottom>
           14752 SW 26th St,
           <br />
@@ -139,7 +152,7 @@ const CardRight = () => {
             label={tag}
             onClick={handleClick}
             sx={{
-              m: 0.10,
+              m: 0.1,
             }}
           />
         ))}
@@ -154,6 +167,9 @@ export default function RideCard() {
       sx={{
         minWidth: 275,
         backgroundColor: 'background.level1',
+        '&:hover': {
+          transform: 'scale(1.01)',
+        },
       }}
     >
       <CardContent
@@ -176,9 +192,6 @@ export default function RideCard() {
           <CardRight />
         </Grid>
       </CardContent>
-      <CardActions>
-        <Button size='small'>Learn More</Button>
-      </CardActions>
     </Card>
   );
 }
