@@ -18,7 +18,7 @@ export const light = {
     contrastText: '#fff',
   },
   text: {
-    primary: '#fff',
+    primary: '#111827',
     secondary: '#677788',
   },
   divider: 'rgba(0, 0, 0, 0.12)',
