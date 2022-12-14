@@ -15,7 +15,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import PersonIcon from '@mui/icons-material/Person';
 import FlagIcon from '@mui/icons-material/Flag';
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from '@mui/icons-material/InfoOutlined';
 
 const mockTags = ['tag1', 'tag2', 'tag3', 'tag4'];
 
@@ -68,7 +68,19 @@ const CardMiddle = () => {
             </Grid>
             <Grid item minWidth={150} display={'flex'}>
               <InfoIcon sx={{ mr: 1 }} />
-              <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
+              <Typography
+                xs={4}
+                sx={{
+                  fontSize: 16,
+                  cursor: 'pointer',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                    color: 'primary.main',
+                  },
+                }}
+                color='text.secondary'
+                gutterBottom
+              >
                 View Details
               </Typography>
             </Grid>
@@ -165,6 +177,8 @@ export default function RideCard() {
   return (
     <Card
       sx={{
+        border: '1px solid #E5E5E5',
+        borderLeft: '4px solid',
         minWidth: 275,
         backgroundColor: 'background.level1',
         '&:hover': {

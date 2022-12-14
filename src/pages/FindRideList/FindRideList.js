@@ -8,7 +8,9 @@ import { RideCard } from './components';
 function FindRideList() {
   return (
     <Main>
-      <Container>
+          <Container
+              bgcolor="white"
+          >
         <Box>
           <RideCard />
         </Box>
