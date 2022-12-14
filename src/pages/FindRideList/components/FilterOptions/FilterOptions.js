@@ -17,7 +17,14 @@ function FilterOptions() {
     >
       <FormGroup>
         <Box display={'flex'} justifyContent={'space-between'}>
-          <Typography variant='h6' color='text.secondary' gutterBottom>
+          <Typography
+            sx={{
+              textDecoration: 'underline',
+            }}
+            variant='h6'
+            color='text.secondary'
+            gutterBottom
+          >
             Filter Options
           </Typography>
           <Button
@@ -32,15 +39,24 @@ function FilterOptions() {
           </Button>
         </Box>
 
-        <Typography variant='h6' color='text.secondary' gutterBottom>
-          Tags
-        </Typography>
-        <FormControlLabel control={<Checkbox />} label='Beginner Friendly' />
-        <FormControlLabel control={<Checkbox />} label='Experienced' />
-        <FormControlLabel control={<Checkbox />} label='Cruiser' />
-        <FormControlLabel control={<Checkbox />} label='Sports Bike' />
-        <FormControlLabel control={<Checkbox />} label='City' />
-        <FormControlLabel control={<Checkbox />} label='Highway' />
+        <Box my={2}>
+          <Typography
+            sx={{
+              textDecoration: 'underline',
+            }}
+            variant='h6'
+            color='text.secondary'
+            gutterBottom
+          >
+            Tags
+          </Typography>
+          <FormControlLabel control={<Checkbox />} label='Beginner Friendly' />
+          <FormControlLabel control={<Checkbox />} label='Experienced' />
+          <FormControlLabel control={<Checkbox />} label='Cruiser' />
+          <FormControlLabel control={<Checkbox />} label='Sports Bike' />
+          <FormControlLabel control={<Checkbox />} label='City' />
+          <FormControlLabel control={<Checkbox />} label='Highway' />
+        </Box>
       </FormGroup>
     </Box>
   );
