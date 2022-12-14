@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
@@ -12,6 +12,11 @@ import { useAuthContext } from 'hooks/useAuthContext';
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
   const theme = useTheme();
   const { profile } = useAuthContext();
+  const [activeTab, setActiveTab] = useState('home');
+
+  const handleTabChange = (newValue) => {
+    setActiveTab(newValue);
+  };
 
   return (
     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} width={1}>
@@ -64,9 +69,9 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
             <NavItem
               title={page.title}
               key={page.title}
-              activeLink={page.href}
+              activeTab={activeTab}
+              handleTabChange={handleTabChange}
               href={page.href}
-              id={'home'}
               colorInvert={colorInvert}
             />
           ))}
@@ -75,7 +80,7 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           {profile ? (
             <AccountMenu colorInvert={colorInvert} profile={profile} />
           ) : (
-            <NavItem title={'Login'} activeLink={'/login'} href={'/login'} id={'home'} colorInvert={colorInvert} />
+            <NavItem title={'Login'} activeLink={'/login'} href={'/login'} colorInvert={colorInvert} />
           )}
         </Box>
       </Box>

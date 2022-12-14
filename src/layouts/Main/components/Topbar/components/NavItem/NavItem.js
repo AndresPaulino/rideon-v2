@@ -3,20 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const NavItem = ({ title, id, href, activeLink, colorInvert = false }) => {
+const NavItem = ({ title, id, href, handleTabChange, activeTab, colorInvert = false }) => {
   const navigate = useNavigate();
-  const [active, setActive] = useState('');
 
   const hasActiveLink = () => {
-    return active === activeLink;
+    return activeTab === href;
   };
-
-  useEffect(() => {
-    setActive(window && window.location ? window.location.pathname : '');
-  }, []);
 
   const handleClick = () => {
     navigate(href);
+    handleTabChange(href);
   };
 
   const linkColor = colorInvert ? 'common.white' : 'common.white';

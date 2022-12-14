@@ -5,7 +5,7 @@ const navPages = [
   },
   {
     title: 'Find Your next Ride',
-    href: '/find-ride',
+    href: '/find-a-ride',
   },
 ];
 
