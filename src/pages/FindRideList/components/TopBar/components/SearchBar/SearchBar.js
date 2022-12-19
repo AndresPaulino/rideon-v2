@@ -101,15 +101,25 @@ export default function SearchBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        padding: 0,
+      }}
+    >
       <AppBar
         position='static'
         sx={{
           backgroundColor: 'white',
-          marginX: 1,
+          boxShadow: 'none',
         }}
       >
-        <Toolbar>
+        <Toolbar
+          disableGutters
+          sx={{
+            backgroundColor: 'white',
+            boxShadow: 'none',
+          }}
+        >
           <Box sx={{ flexGrow: 1 }} />
           <Search>
             <SearchIconWrapper>
