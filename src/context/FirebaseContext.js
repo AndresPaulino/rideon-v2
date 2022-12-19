@@ -11,6 +11,7 @@ import {
   TwitterAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  
 } from 'firebase/auth';
 import { getFirestore, collection, doc, getDoc, setDoc, getDocsFromServer } from 'firebase/firestore';
 // config
@@ -109,7 +110,8 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = async (email, password) => {
-    signInWithEmailAndPassword(AUTH, email, password);
+    signInWithEmailAndPassword(AUTH, email, password)
+
   };
 
   const loginWithGoogle = () => signInWithPopup(AUTH, GOOGLE_PROVIDER);

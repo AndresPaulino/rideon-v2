@@ -12,7 +12,7 @@ import { useAuthContext } from 'hooks/useAuthContext';
 const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
   const theme = useTheme();
   const { profile } = useAuthContext();
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState('/');
 
   const handleTabChange = (newValue) => {
     setActiveTab(newValue);
@@ -66,21 +66,14 @@ const Topbar = ({ onSidebarOpen, pages, colorInvert = false }) => {
           }}
         >
           {pages.map((page) => (
-            <NavItem
-              title={page.title}
-              key={page.title}
-              activeTab={activeTab}
-              handleTabChange={handleTabChange}
-              href={page.href}
-              colorInvert={colorInvert}
-            />
+            <NavItem title={page.title} key={page.title} href={page.href} />
           ))}
         </Box>
         <Box marginLeft={2}>
           {profile ? (
             <AccountMenu colorInvert={colorInvert} profile={profile} />
           ) : (
-            <NavItem title={'Login'} activeLink={'/login'} href={'/login'} colorInvert={colorInvert} />
+            <NavItem title={'Login'} href={'/login'} />
           )}
         </Box>
       </Box>

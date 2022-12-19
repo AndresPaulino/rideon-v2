@@ -31,15 +31,8 @@ const Form = () => {
   const onSubmit = (values) => {
     const { email, password } = values;
 
-    login(email, password)
-      .then(() => {
-        navigate('/', { replace: true });
-      })
-      .catch((error) => {
-        // set error message
-        formik.setFieldError('email', error.message);
-        console.log(error);
-      });
+    login(email, password);
+    navigate('/', { replace: true });
   };
 
   const formik = useFormik({

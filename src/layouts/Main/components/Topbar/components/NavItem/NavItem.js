@@ -1,42 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const NavItem = ({ title, id, href, handleTabChange, activeTab, colorInvert = false }) => {
+const NavItem = ({ title, href }) => {
   const navigate = useNavigate();
 
-  const hasActiveLink = () => {
-    return activeTab === href;
+  const activeStyle = {
+    color: 'white',
+    fontWeight: 'bold',
+    backgroundColor: '#f4a261',
+    '&:hover': {
+      backgroundColor: '#f4a261',
+      padding: '0.5rem',
+      borderRadius: '0.5rem',
+    },
+    padding: '0.5rem',
+    borderRadius: '0.5rem',
+    textDecoration: 'none',
   };
-
-  const handleClick = () => {
-    navigate(href);
-    handleTabChange(href);
+  const inactiveStyle = {
+    color: 'white',
+    fontWeight: 'normal',
+    textDecoration: 'none',
+    backgroundColor: 'transparent',
+    '&:hover': {
+      backgroundColor: '#f4a261',
+      padding: '0.5rem',
+      borderRadius: '0.5rem',
+    },
   };
-
-  const linkColor = colorInvert ? 'common.white' : 'common.white';
 
   return (
     <Box>
-      <Box
-        display={'flex'}
-        alignItems={'center'}
-        sx={{
-          bgcolor: hasActiveLink() ? 'primary.main' : 'transparent',
-          '&:hover': {
-            bgcolor: 'primary.main',
-          },
-          cursor: 'pointer',
-          borderRadius: 1,
-          p: 1,
-          m: 1,
-        }}
-      >
-        <Typography fontWeight={hasActiveLink() ? 'bold' : 400} color={linkColor} onClick={handleClick}>
-          {title}
-        </Typography>
-      </Box>
+      <NavLink to={href} style={({ isActive }) => (isActive ? activeStyle : inactiveStyle)}>
+        {title}
+      </NavLink>
     </Box>
   );
 };
