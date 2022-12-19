@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Select } from '@mui/material';
+import { Button, Select } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -106,6 +106,7 @@ export default function SearchBar() {
         position='static'
         sx={{
           backgroundColor: 'white',
+          marginX: 1,
         }}
       >
         <Toolbar>
@@ -121,10 +122,14 @@ export default function SearchBar() {
             <StyledInputBase placeholder='Search…' inputProps={{ 'aria-label': 'search' }} />
           </Search>
 
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Typography>
+          <Box sx={{ display: { xs: 'none', md: 'flex', marginRight: 4 } }}>
+            <Typography
+              sx={{
+                color: '#c4c4c4',
+              }}
+            >
               Sort by{' '}
-              <Select defaultValue='1' onChange={handleSortChange} sx={{ width: 120 }}>
+              <Select size='small' defaultValue='1' onChange={handleSortChange} sx={{ width: 120 }}>
                 <MenuItem style={{ color: 'white' }} value='1'>
                   Newest
                 </MenuItem>
@@ -137,6 +142,9 @@ export default function SearchBar() {
               </Select>
             </Typography>
           </Box>
+          <Box minWidth={120}>
+            <Button variant='contained'>Create Ride</Button>
+          </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
@@ -144,7 +152,7 @@ export default function SearchBar() {
               aria-controls={mobileMenuId}
               aria-haspopup='true'
               onClick={handleMobileMenuOpen}
-              color='inherit'
+              color='#c4c4c4'
             >
               <MoreIcon />
             </IconButton>
