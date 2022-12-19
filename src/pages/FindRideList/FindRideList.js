@@ -9,18 +9,19 @@ import { RideCard, FilterOptions } from './components';
 function FindRideList() {
   return (
     <Main>
-      <Container bgcolor='white'>
-        <Box>
+      <Box bgcolor={'white'}>
+        <Container bgcolor='white' borderRadius={2}>
           <Grid container spacing={2}>
             <Grid item xs={12} lg={3}>
               <FilterOptions />
             </Grid>
             <Grid item xs={12} lg={9}>
               <RideCard />
+              <RideCard />
             </Grid>
           </Grid>
-        </Box>
-      </Container>
+        </Container>
+      </Box>
     </Main>
   );
 }

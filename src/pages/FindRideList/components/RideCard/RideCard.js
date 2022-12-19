@@ -186,6 +186,7 @@ export default function RideCard() {
         '&:hover': {
           transform: 'scale(1.01)',
         },
+        marginBottom: 2,
       }}
     >
       <CardContent
