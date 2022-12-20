@@ -31,8 +31,14 @@ const Form = () => {
   const onSubmit = (values) => {
     const { email, password } = values;
 
-    login(email, password);
-    navigate('/', { replace: true });
+    login(email, password).then(() => {
+      navigate('/dashboard', { replace: true });
+    });
+    formik.resetForm();
+    
+
+    
+    navigate('/login', { replace: true });
   };
 
   const formik = useFormik({

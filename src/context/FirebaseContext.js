@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { createContext, useEffect, useReducer, useCallback, useState } from 'react';
+import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -11,12 +11,10 @@ import {
   TwitterAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  
 } from 'firebase/auth';
-import { getFirestore, collection, doc, getDoc, setDoc, getDocsFromServer } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 // config
 import { FIREBASE_API } from '../config';
-// import { _invoices } from '_mock/arrays';
 
 // ----------------------------------------------------------------------
 
@@ -86,6 +84,7 @@ export function AuthProvider({ children }) {
               user: {
                 ...user,
                 ...profile,
+                role: 'admin',
               },
             },
           });
@@ -109,58 +108,67 @@ export function AuthProvider({ children }) {
   }, [initialize]);
 
   // LOGIN
-  const login = async (email, password) => {
-    signInWithEmailAndPassword(AUTH, email, password)
+  const login = useCallback((email, password) => {
+    signInWithEmailAndPassword(AUTH, email, password).catch((error) => {
+      console.error(error);
+    });
+  }, []);
 
-  };
+  const loginWithGoogle = useCallback(() => {
+    signInWithPopup(AUTH, GOOGLE_PROVIDER);
+  }, []);
 
-  const loginWithGoogle = () => signInWithPopup(AUTH, GOOGLE_PROVIDER);
+  const loginWithGithub = useCallback(() => {
+    signInWithPopup(AUTH, GITHUB_PROVIDER);
+  }, []);
 
-  const loginWithGithub = async () => signInWithPopup(AUTH, GITHUB_PROVIDER);
-
-  const loginWithTwitter = async () => signInWithPopup(AUTH, TWITTER_PROVIDER);
+  const loginWithTwitter = useCallback(() => {
+    signInWithPopup(AUTH, TWITTER_PROVIDER);
+  }, []);
 
   // REGISTER
-  const register = async (firstName, lastName, email, password) => {
-    try {
-      const result = await createUserWithEmailAndPassword(AUTH, email, password);
-      const userRef = doc(DB, 'users', result.user.uid);
+  const register = useCallback((email, password, firstName, lastName) => {
+    createUserWithEmailAndPassword(AUTH, email, password).then(async (res) => {
+      const userRef = doc(collection(DB, 'users'), res.user?.uid);
+
       await setDoc(userRef, {
-        firstName,
-        lastName,
+        uid: res.user?.uid,
         email,
-        role: 'user',
-        photoURL: '/static/mock-images/avatars/avatar_default.jpg',
-        cover: '/static/mock-images/covers/cover_default.jpg',
-        createdAt: new Date(),
-        isVerified: false,
-        isOnline: true,
-        isSuspended: false,
-        isBanned: false,
+        displayName: `${firstName} ${lastName}`,
       });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    });
+  }, []);
 
   // LOGOUT
-  const logout = () => signOut(AUTH);
+  const logout = useCallback(() => {
+    signOut(AUTH);
+  }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        ...state,
-        method: 'firebase',
-        login,
-        loginWithGoogle,
-        loginWithGithub,
-        loginWithTwitter,
-        register,
-        logout,
-        profile: state.user,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const memoizedValue = useMemo(
+    () => ({
+      isInitialized: state.isInitialized,
+      isAuthenticated: state.isAuthenticated,
+      user: state.user,
+      method: 'firebase',
+      login,
+      loginWithGoogle,
+      loginWithGithub,
+      loginWithTwitter,
+      register,
+      logout,
+    }),
+    [
+      state.isAuthenticated,
+      state.isInitialized,
+      state.user,
+      login,
+      loginWithGithub,
+      loginWithGoogle,
+      loginWithTwitter,
+      register,
+      logout,
+    ]
   );
+
+  return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
 }

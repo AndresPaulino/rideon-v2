@@ -18,8 +18,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from 'hooks/useAuthContext';
 
 export default function AccountMenu() {
-  const { logout, profile } = useAuthContext();
-  console.log('profile', profile);
+  const { logout, user } = useAuthContext();
+  console.log('user', user);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -45,7 +45,7 @@ export default function AccountMenu() {
             aria-haspopup='true'
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>{profile.firstName.charAt(0)}</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{user.firstName.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
