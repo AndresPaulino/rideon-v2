@@ -47,15 +47,13 @@ export default function AuthLoginForm() {
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
-      navigate('/', { replace: true });
     } catch (error) {
-      console.error(error);
-      reset();
-      setError('afterSubmit', {
-        ...error,
-        message: error.message,
-      });
+      console.log('this is here');
     }
+
+    reset(defaultValues);
+
+    return;
   };
 
   return (
@@ -108,6 +106,11 @@ export default function AuthLoginForm() {
             Forgot password?
           </Link>
         </Stack>
+        <Stack alignItems='flex-end' sx={{ my: 2 }}>
+          <Link component={RouterLink} to={'/'} variant='body2' color='inherit' underline='always'>
+            Register new account
+          </Link>
+        </Stack>
 
         <LoadingButton
           fullWidth
@@ -115,12 +118,11 @@ export default function AuthLoginForm() {
           size='large'
           type='submit'
           variant='contained'
-          loading={isSubmitting}
           sx={{
-            bgcolor: 'text.primary',
+            bgcolor: 'primary.main',
             color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
             '&:hover': {
-              bgcolor: 'text.primary',
+              bgcolor: 'primary.dark',
               color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
             },
           }}

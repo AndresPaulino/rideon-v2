@@ -15,6 +15,7 @@ import {
 import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 // config
 import { FIREBASE_API } from '../config';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
@@ -66,6 +67,7 @@ AuthProvider.propTypes = {
 
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const initialize = useCallback(() => {
     try {
@@ -109,9 +111,15 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = useCallback((email, password) => {
-    signInWithEmailAndPassword(AUTH, email, password).catch((error) => {
-      console.error(error);
-    });
+    signInWithEmailAndPassword(AUTH, email, password)
+      .then((res) => {
+        enqueueSnackbar('Login success', { variant: 'success' });
+        window.location = '/';
+      })
+      .catch((error) => {
+        closeSnackbar();
+        enqueueSnackbar('Incorrect email or password', { variant: 'error' });
+      });
   }, []);
 
   const loginWithGoogle = useCallback(() => {
