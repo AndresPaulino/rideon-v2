@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { TextField, Button, Typography, Box, Grid, Autocomplete } from '@mui/material';
 import { useFormik } from 'formik';
+import PlacesAutocomplete from './PlacesAutocomplete';
 
 const CreateRideForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,6 +74,7 @@ const CreateRideForm = () => {
             helperText={formik.touched.date && formik.errors.date}
             InputLabelProps={{
               shrink: true,
+              min: new Date().toISOString().slice(0, 10),
             }}
           />
         </Grid>
@@ -94,7 +96,7 @@ const CreateRideForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          {/* <TextField
             name='startLocation'
             label='Start Location'
             fullWidth
@@ -104,7 +106,8 @@ const CreateRideForm = () => {
             value={formik.values.startLocation}
             error={formik.touched.startLocation && Boolean(formik.errors.startLocation)}
             helperText={formik.touched.startLocation && formik.errors.startLocation}
-          />
+          /> */}
+          <PlacesAutocomplete name='startLocation' label='Start Location' />
         </Grid>
         <Grid item xs={12}>
           <TextField
