@@ -20,17 +20,10 @@ const CreateRideForm = () => {
     endLocation: '',
     date: '',
     time: '',
-    tags: [],
+    rideTags: [],
   };
 
-  const rideTags = [
-    { title: 'Beginner Friendly' },
-    { title: 'Experienced' },
-    { title: 'City' },
-    { title: 'Highway' },
-    { title: 'Sports Bike' },
-    { title: 'Cruiser' },
-  ];
+  const rideTags = ['Beginner Friendly', 'Experienced', 'City', 'Highway', 'Sports Bike', 'Cruiser'];
 
   const onSubmit = (values) => {
     setIsSubmitting(true);
@@ -75,9 +68,9 @@ const CreateRideForm = () => {
             variant='outlined'
             margin='normal'
             onChange={formik.handleChange}
-            value={formik.values.title}
-            error={formik.touched.title && Boolean(formik.errors.title)}
-            helperText={formik.touched.title && formik.errors.title}
+            value={formik.values.date}
+            error={formik.touched.date && Boolean(formik.errors.date)}
+            helperText={formik.touched.date && formik.errors.date}
             InputLabelProps={{
               shrink: true,
             }}
@@ -135,21 +128,14 @@ const CreateRideForm = () => {
               backgroundColor: 'white',
             }}
             options={rideTags}
-            getOptionLabel={(option) => option.title}
+            getOptionLabel={(option) => option}
+            onChange={(event, value) => formik.setFieldValue('rideTags', value)}
             ListboxProps={{
               sx: {
                 color: 'white',
               },
             }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label='tags'
-                placeholder='Tags'
-                onChange={formik.handleChange}
-                value={formik.values.tags}
-              />
-            )}
+            renderInput={(params) => <TextField {...params} label='tags' placeholder='Tags' />}
           />
         </Grid>
       </Grid>
