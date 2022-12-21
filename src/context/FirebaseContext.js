@@ -12,7 +12,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, setDoc, deleteDoc, getDocs } from 'firebase/firestore';
 // config
 import { FIREBASE_API } from '../config';
 import { useSnackbar } from 'notistack';
@@ -154,6 +154,85 @@ export function AuthProvider({ children }) {
   const logout = useCallback(() => {
     signOut(AUTH);
   }, []);
+
+  // CREATE RIDE
+  const createRide = (
+    rideDate,
+    rideStartAddress,
+    rideEndAddress,
+    rideId,
+    rideUserId,
+    rideTitle,
+    rideParticipants,
+    rideTime
+  ) => {
+    const rideRef = doc(collection(DB, 'rides'), rideId);
+
+    setDoc(rideRef, {
+      rideDate,
+      rideStartAddress,
+      rideEndAddress,
+      rideId,
+      rideUserId,
+      rideTitle,
+      rideParticipants,
+      rideTime,
+    });
+
+    enqueueSnackbar('Ride created', { variant: 'success' });
+
+    window.location = '/rides';
+  };
+
+  // JOIN RIDE
+  const joinRide = (rideId, rideUserId, rideParticipants) => {
+    const rideRef = doc(collection(DB, 'rides'), rideId);
+
+    setDoc(rideRef, {
+      rideParticipants,
+    });
+
+    enqueueSnackbar('Ride joined', { variant: 'success' });
+
+    window.location = '/rides';
+  };
+
+  // LEAVE RIDE
+  const leaveRide = (rideId, rideUserId, rideParticipants) => {
+    const rideRef = doc(collection(DB, 'rides'), rideId);
+
+    setDoc(rideRef, {
+      rideParticipants,
+    });
+
+    enqueueSnackbar('Ride left', { variant: 'success' });
+
+    window.location = '/rides';
+  };
+
+  // DELETE RIDE
+  const deleteRide = (rideId) => {
+    const rideRef = doc(collection(DB, 'rides'), rideId);
+
+    deleteDoc(rideRef);
+
+    enqueueSnackbar('Ride deleted', { variant: 'success' });
+
+    window.location = '/rides';
+  };
+
+  // GET ALL RIDES
+  const getAllRides = async () => {
+    const querySnapshot = await getDocs(collection(DB, 'rides'));
+
+    const rides = [];
+
+    querySnapshot.forEach((doc) => {
+      rides.push(doc.data());
+    });
+
+    return rides;
+  };
 
   const memoizedValue = useMemo(
     () => ({
