@@ -42,7 +42,6 @@ const PlacesAutocomplete = ({ handleStartLocationChange, handleEndLocationChange
           fieldLabel === 'Start Location'
             ? handleStartLocationChange(description, { lat, lng })
             : handleEndLocationChange(description, { lat, lng });
-          console.log('📍 Coordinates: ', { lat, lng });
         } catch (error) {
           console.log('😱 Error: ', error);
         }
