@@ -17,10 +17,12 @@ const CreateRideForm = () => {
 
   const initialValues = {
     title: '',
-    startLocation: '',
-    endLocation: '',
     date: '',
     time: '',
+    startLocation: '',
+    endLocation: '',
+    startCoords: {},
+    endCoords: {},
     rideTags: [],
   };
 
@@ -31,6 +33,16 @@ const CreateRideForm = () => {
     console.log(values);
 
     setIsSubmitting(false);
+  };
+
+  const handleStartLocationChange = (value, coords) => {
+    formik.setFieldValue('startLocation', value);
+    formik.setFieldValue('startCoords', coords);
+  };
+
+  const handleEndLocationChange = (value, coords) => {
+    formik.setFieldValue('endLocation', value);
+    formik.setFieldValue('endCoords', coords);
   };
 
   const formik = useFormik({
@@ -96,30 +108,17 @@ const CreateRideForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          {/* <TextField
-            name='startLocation'
-            label='Start Location'
-            fullWidth
-            variant='outlined'
-            margin='normal'
-            onChange={formik.handleChange}
-            value={formik.values.startLocation}
-            error={formik.touched.startLocation && Boolean(formik.errors.startLocation)}
-            helperText={formik.touched.startLocation && formik.errors.startLocation}
-          /> */}
-          <PlacesAutocomplete name='startLocation' label='Start Location' />
+          <PlacesAutocomplete
+            handleStartLocationChange={handleStartLocationChange}
+            fieldName='startLocation'
+            fieldLabel='Start Location'
+          />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            name='endLocation'
-            label='End Location'
-            fullWidth
-            variant='outlined'
-            margin='normal'
-            onChange={formik.handleChange}
-            value={formik.values.endLocation}
-            error={formik.touched.endLocation && Boolean(formik.errors.endLocation)}
-            helperText={formik.touched.endLocation && formik.errors.endLocation}
+          <PlacesAutocomplete
+            handleEndLocationChange={handleEndLocationChange}
+            fieldName='endLocation'
+            fieldLabel='End Location'
           />
         </Grid>
         <Grid item xs={8}>

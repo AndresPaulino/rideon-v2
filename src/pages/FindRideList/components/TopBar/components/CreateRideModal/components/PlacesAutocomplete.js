@@ -1,7 +1,8 @@
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
+import { Box, Divider, TextField, Typography } from '@mui/material';
 
-const PlacesAutocomplete = ({ handleAddress, handleCoords }) => {
+const PlacesAutocomplete = ({ handleStartLocationChange, handleEndLocationChange, fieldLabel, fieldName }) => {
   const {
     ready,
     value,
@@ -31,14 +32,16 @@ const PlacesAutocomplete = ({ handleAddress, handleCoords }) => {
       // When user selects a place, we can replace the keyword without request data from API
       // by setting the second parameter to "false"
       setValue(description, false);
-      handleAddress(description);
+
       clearSuggestions();
 
       // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
         try {
           const { lat, lng } = getLatLng(results[0]);
-          handleCoords(lat, lng);
+          fieldLabel === 'Start Location'
+            ? handleStartLocationChange(description, { lat, lng })
+            : handleEndLocationChange(description, { lat, lng });
           console.log('📍 Coordinates: ', { lat, lng });
         } catch (error) {
           console.log('😱 Error: ', error);
@@ -54,23 +57,50 @@ const PlacesAutocomplete = ({ handleAddress, handleCoords }) => {
       } = suggestion;
 
       return (
-        <li className='rounded font-poppins hover:bg-gray-200' key={place_id} onClick={handleSelect(suggestion)}>
-          <span className='font-semibold'>{main_text}</span> <span>{secondary_text}</span>
-        </li>
+        <Box
+          onClick={handleSelect(suggestion)}
+          key={place_id}
+          sx={{
+            padding: '0.5rem',
+            borderRadius: '0.5rem',
+            cursor: 'pointer',
+            '&:hover': {
+              backgroundColor: '#e0e0e0',
+            },
+          }}
+        >
+          <Typography className='font-semibold'>{main_text}</Typography> <Typography>{secondary_text}</Typography>
+          <Divider />
+        </Box>
       );
     });
 
   return (
     <div ref={ref} className='map-search'>
-      <input
+      <TextField
         value={value}
         onChange={handleInput}
         disabled={!ready}
-        placeholder='Where are you going?'
+        name={fieldName}
+        label={fieldLabel}
+        fullWidth
+        variant='outlined'
+        margin='normal'
         className='map-input'
       />
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
-      {status === 'OK' && <ul className='map-list'>{renderSuggestions()}</ul>}
+      {status === 'OK' && (
+        <Box
+          sx={{
+            border: '1px solid #e0e0e0',
+            padding: '0.5rem',
+            borderRadius: '0.5rem',
+          }}
+          className='map-list'
+        >
+          {renderSuggestions()}
+        </Box>
+      )}
     </div>
   );
 };
