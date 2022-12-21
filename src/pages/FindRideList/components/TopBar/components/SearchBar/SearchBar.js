@@ -12,6 +12,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button, Select } from '@mui/material';
 
+import CreateRideModal from '../CreateRideModal';
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -153,7 +155,7 @@ export default function SearchBar() {
             </Typography>
           </Box>
           <Box minWidth={120}>
-            <Button variant='contained'>Create Ride</Button>
+            <CreateRideModal />
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

@@ -110,17 +110,20 @@ export function AuthProvider({ children }) {
   }, [initialize]);
 
   // LOGIN
-  const login = useCallback((email, password) => {
-    signInWithEmailAndPassword(AUTH, email, password)
-      .then((res) => {
-        enqueueSnackbar('Login success', { variant: 'success' });
-        window.location = '/';
-      })
-      .catch((error) => {
-        closeSnackbar();
-        enqueueSnackbar('Incorrect email or password', { variant: 'error' });
-      });
-  }, []);
+  const login = useCallback(
+    (email, password) => {
+      signInWithEmailAndPassword(AUTH, email, password)
+        .then((res) => {
+          enqueueSnackbar('Login success', { variant: 'success' });
+          window.location = '/';
+        })
+        .catch((error) => {
+          closeSnackbar();
+          enqueueSnackbar('Incorrect email or password', { variant: 'error' });
+        });
+    },
+    [closeSnackbar, enqueueSnackbar]
+  );
 
   const loginWithGoogle = useCallback(() => {
     signInWithPopup(AUTH, GOOGLE_PROVIDER);
