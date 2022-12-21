@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CreateRideForm from './components/CreateRideForm';
+import { useAuthContext } from 'hooks/useAuthContext';
 
 const style = {
   position: 'absolute',
@@ -19,8 +20,16 @@ const style = {
 };
 
 export default function BasicModal() {
+  const { user } = useAuthContext();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    if (!user) {
+      alert('Please login to create a ride');
+      return;
+    }
+
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   return (
