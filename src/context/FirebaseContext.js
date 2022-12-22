@@ -181,7 +181,7 @@ export function AuthProvider({ children }) {
 
     enqueueSnackbar('Ride created', { variant: 'success' });
 
-    window.location = '/rides';
+    window.location = '/find-a-ride';
   };
 
   // JOIN RIDE
@@ -194,7 +194,7 @@ export function AuthProvider({ children }) {
 
     enqueueSnackbar('Ride joined', { variant: 'success' });
 
-    window.location = '/rides';
+    window.location = '/find-a-ride';
   };
 
   // LEAVE RIDE
@@ -207,7 +207,7 @@ export function AuthProvider({ children }) {
 
     enqueueSnackbar('Ride left', { variant: 'success' });
 
-    window.location = '/rides';
+    window.location = '/find-a-ride';
   };
 
   // DELETE RIDE
@@ -218,7 +218,7 @@ export function AuthProvider({ children }) {
 
     enqueueSnackbar('Ride deleted', { variant: 'success' });
 
-    window.location = '/rides';
+    window.location = '/find-a-ride';
   };
 
   // GET ALL RIDES
