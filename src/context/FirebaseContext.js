@@ -12,7 +12,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { getFirestore, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, setDoc, deleteDoc, getDocs } from 'firebase/firestore';
 // config
 import { FIREBASE_API } from '../config';
 import { useSnackbar } from 'notistack';
@@ -155,6 +155,28 @@ export function AuthProvider({ children }) {
     signOut(AUTH);
   }, []);
 
+  // CREATE RIDE
+  const createRide = useCallback(
+    async (ride) => {
+      const rideRef = doc(collection(DB, 'rides'), ride.rideId);
+
+      await setDoc(rideRef, {
+        ...ride,
+      });
+
+      window.location = '/find-a-ride';
+    },
+    [DB]
+  );
+
+  // GET RIDES
+  const getRides = useCallback(async () => {
+    const ridesRef = collection(DB, 'rides');
+    const snapshot = await getDocs(ridesRef);
+
+    return snapshot.docs.map((doc) => doc.data());
+  }, [DB]);
+
   const memoizedValue = useMemo(
     () => ({
       isInitialized: state.isInitialized,
@@ -167,6 +189,8 @@ export function AuthProvider({ children }) {
       loginWithTwitter,
       register,
       logout,
+      createRide,
+      getRides,
     }),
     [
       state.isAuthenticated,
@@ -178,6 +202,8 @@ export function AuthProvider({ children }) {
       loginWithTwitter,
       register,
       logout,
+      createRide,
+      getRides,
     ]
   );
 
