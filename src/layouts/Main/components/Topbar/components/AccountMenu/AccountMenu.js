@@ -19,7 +19,6 @@ import { useAuthContext } from 'hooks/useAuthContext';
 
 export default function AccountMenu() {
   const { logout, user } = useAuthContext();
-  console.log('user', user);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

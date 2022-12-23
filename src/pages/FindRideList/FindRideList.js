@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { RideCard, FilterOptions, TopBar } from './components';
+import { useAuthContext } from 'hooks/useAuthContext';
 
 function FindRideList() {
+  const { getRides } = useAuthContext();
+  const [loading, setLoading] = useState(false);
+  const [rides, setRides] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchRides = async () => {
+      setLoading(true);
+      const rides = await getRides();
+      setRides(rides);
+      setLoading(false);
+    };
+    fetchRides();
+  }, [getRides]);
+
   return (
     <Main>
       <Box bgcolor={'white'}>
@@ -17,8 +33,17 @@ function FindRideList() {
               <FilterOptions />
             </Grid>
             <Grid item xs={12} lg={9}>
-              <RideCard />
-              <RideCard />
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                rides.map(
+                  (ride) => (
+                    // eslint-disable-next-line no-sequences
+                    console.log(ride),
+                    (<RideCard key={ride.rideId} ride={ride} onClick={() => navigate(`/app/rides/${ride.rideId}`)} />)
+                  )
+                )
+              )}
             </Grid>
           </Grid>
         </Container>
