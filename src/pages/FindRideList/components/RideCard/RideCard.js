@@ -175,7 +175,7 @@ const CardRight = () => {
   );
 };
 
-export default function RideCard() {
+export default function RideCard({ ride }) {
   return (
     <Card
       sx={{
@@ -203,10 +203,10 @@ export default function RideCard() {
             flexDirection: 'row',
           }}
         >
-          <CardLeft />
-          <CardMiddle />
+          <CardLeft ride={ride} />
+          <CardMiddle ride={ride} />
           <Box sx={{ flexGrow: 1 }} />
-          <CardRight />
+          <CardRight ride={ride} />
         </Grid>
       </CardContent>
     </Card>

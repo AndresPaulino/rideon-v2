@@ -164,7 +164,7 @@ export function AuthProvider({ children }) {
         ...ride,
       });
 
-      window.location = '/';
+      window.location = '/find-a-ride';
     },
     [DB]
   );

@@ -8,7 +8,7 @@ import { RideCard, FilterOptions, TopBar } from './components';
 import { useAuthContext } from 'hooks/useAuthContext';
 
 function FindRideList() {
-  const { user, getRides } = useAuthContext();
+  const { getRides } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [rides, setRides] = useState([]);
   const navigate = useNavigate();
@@ -36,9 +36,13 @@ function FindRideList() {
               {loading ? (
                 <div>Loading...</div>
               ) : (
-                rides.map((ride) => (
-                  <RideCard key={ride.rideId} ride={ride} onClick={() => navigate(`/app/rides/${ride.rideId}`)} />
-                ))
+                rides.map(
+                  (ride) => (
+                    // eslint-disable-next-line no-sequences
+                    console.log(ride),
+                    (<RideCard key={ride.rideId} ride={ride} onClick={() => navigate(`/app/rides/${ride.rideId}`)} />)
+                  )
+                )
               )}
             </Grid>
           </Grid>
