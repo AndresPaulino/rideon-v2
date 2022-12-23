@@ -156,83 +156,26 @@ export function AuthProvider({ children }) {
   }, []);
 
   // CREATE RIDE
-  const createRide = (
-    rideDate,
-    rideStartAddress,
-    rideEndAddress,
-    rideId,
-    rideUserId,
-    rideTitle,
-    rideParticipants,
-    rideTime
-  ) => {
-    const rideRef = doc(collection(DB, 'rides'), rideId);
+  const createRide = useCallback(
+    async (ride) => {
+      const rideRef = doc(collection(DB, 'rides'), ride.rideId);
 
-    setDoc(rideRef, {
-      rideDate,
-      rideStartAddress,
-      rideEndAddress,
-      rideId,
-      rideUserId,
-      rideTitle,
-      rideParticipants,
-      rideTime,
-    });
+      await setDoc(rideRef, {
+        ...ride,
+      });
 
-    enqueueSnackbar('Ride created', { variant: 'success' });
+      window.location = '/';
+    },
+    [DB]
+  );
 
-    window.location = '/find-a-ride';
-  };
+  // GET RIDES
+  const getRides = useCallback(async () => {
+    const ridesRef = collection(DB, 'rides');
+    const snapshot = await getDocs(ridesRef);
 
-  // JOIN RIDE
-  const joinRide = (rideId, rideUserId, rideParticipants) => {
-    const rideRef = doc(collection(DB, 'rides'), rideId);
-
-    setDoc(rideRef, {
-      rideParticipants,
-    });
-
-    enqueueSnackbar('Ride joined', { variant: 'success' });
-
-    window.location = '/find-a-ride';
-  };
-
-  // LEAVE RIDE
-  const leaveRide = (rideId, rideUserId, rideParticipants) => {
-    const rideRef = doc(collection(DB, 'rides'), rideId);
-
-    setDoc(rideRef, {
-      rideParticipants,
-    });
-
-    enqueueSnackbar('Ride left', { variant: 'success' });
-
-    window.location = '/find-a-ride';
-  };
-
-  // DELETE RIDE
-  const deleteRide = (rideId) => {
-    const rideRef = doc(collection(DB, 'rides'), rideId);
-
-    deleteDoc(rideRef);
-
-    enqueueSnackbar('Ride deleted', { variant: 'success' });
-
-    window.location = '/find-a-ride';
-  };
-
-  // GET ALL RIDES
-  const getAllRides = async () => {
-    const querySnapshot = await getDocs(collection(DB, 'rides'));
-
-    const rides = [];
-
-    querySnapshot.forEach((doc) => {
-      rides.push(doc.data());
-    });
-
-    return rides;
-  };
+    return snapshot.docs.map((doc) => doc.data());
+  }, [DB]);
 
   const memoizedValue = useMemo(
     () => ({
@@ -246,6 +189,8 @@ export function AuthProvider({ children }) {
       loginWithTwitter,
       register,
       logout,
+      createRide,
+      getRides,
     }),
     [
       state.isAuthenticated,
@@ -257,6 +202,8 @@ export function AuthProvider({ children }) {
       loginWithTwitter,
       register,
       logout,
+      createRide,
+      getRides,
     ]
   );
 

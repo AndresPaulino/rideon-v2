@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import * as yup from 'yup';
 import { TextField, Button, Typography, Box, Grid, Autocomplete } from '@mui/material';
 import { useFormik } from 'formik';
+import { v4 as uuidv4 } from 'uuid';
 import PlacesAutocomplete from './PlacesAutocomplete';
+import { useAuthContext } from 'hooks/useAuthContext';
 
 const CreateRideForm = () => {
+  const { user, createRide } = useAuthContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validationSchema = yup.object({
@@ -28,9 +31,23 @@ const CreateRideForm = () => {
 
   const rideTags = ['Beginner Friendly', 'Experienced', 'City', 'Highway', 'Sports Bike', 'Cruiser'];
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     setIsSubmitting(true);
     console.log(values);
+    const ride = {
+      ...values,
+      rideDate: values.date,
+      rideStartLocation: values.startLocation,
+      rideEndLocation: values.endLocation,
+      rideId: uuidv4(),
+      rideUserId: user.uid,
+      rideTitle: values.title,
+      rideParticipants: 1,
+      rideTime: values.time,
+      rideAvatar: user.photoURL,
+      rideTags: values.rideTags.map((tag) => tag.toLowerCase()),
+    };
+    await createRide(ride);
 
     setIsSubmitting(false);
   };
