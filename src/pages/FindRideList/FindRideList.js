@@ -9,11 +9,10 @@ import { useAuthContext } from 'hooks/useAuthContext';
 import { Typography } from '@mui/material';
 
 function FindRideList() {
-  const { getRides } = useAuthContext();
+  const { getRides, joinRide, user } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [rides, setRides] = useState([]);
   const navigate = useNavigate();
-
   // determine if rideDate is in the past
   const isPast = (date) => {
     const today = new Date();
@@ -45,7 +44,7 @@ function FindRideList() {
                 <div>Loading...</div>
               ) : rides.length > 0 ? (
                 rides.map((ride) => (
-                  <RideCard key={ride.id} ride={ride} onClick={() => navigate(`/find-ride/${ride.id}`)} />
+                  <RideCard key={ride.id} ride={ride} joinRide={() => joinRide(user.uid, ride.rideId)} />
                 ))
               ) : (
                 <Box>

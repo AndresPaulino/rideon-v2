@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -117,7 +116,7 @@ const CardMiddle = ({ ride }) => {
             <Grid item minWidth={150} display={'flex'}>
               <PersonIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
-                {rideParticipants} participants
+                {rideParticipants.length} participants
               </Typography>
             </Grid>
           </Grid>
@@ -127,7 +126,7 @@ const CardMiddle = ({ ride }) => {
   );
 };
 
-const CardRight = ({ ride }) => {
+const CardRight = ({ ride, joinRide }) => {
   const { rideTags, endLocation, startLocation } = ride;
   const location = (location) => {
     const [street, city, state] = location.split(',');
@@ -154,7 +153,9 @@ const CardRight = ({ ride }) => {
       }}
     >
       <Box>
-        <Button variant='contained'>Join Ride</Button>
+        <Button variant='contained' onClick={joinRide}>
+          Join Ride
+        </Button>
       </Box>
       <Box pt={4} display={'flex'}>
         <FlagIcon sx={{ mr: 1 }} />
@@ -194,7 +195,7 @@ const CardRight = ({ ride }) => {
   );
 };
 
-export default function RideCard({ ride }) {
+export default function RideCard({ ride, joinRide }) {
   return (
     <Card
       sx={{
@@ -225,7 +226,7 @@ export default function RideCard({ ride }) {
           <CardLeft ride={ride} />
           <CardMiddle ride={ride} />
           <Box sx={{ flexGrow: 1 }} />
-          <CardRight ride={ride} />
+          <CardRight ride={ride} joinRide={joinRide} />
         </Grid>
       </CardContent>
     </Card>

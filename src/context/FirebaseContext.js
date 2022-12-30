@@ -177,6 +177,32 @@ export function AuthProvider({ children }) {
     return snapshot.docs.map((doc) => doc.data());
   }, [DB]);
 
+  // JOIN RIDE
+  const joinRide = useCallback(
+    async (userId, rideId) => {
+      const rideRef = doc(collection(DB, 'rides'), rideId);
+      const rideDoc = await getDoc(rideRef);
+
+      const ride = rideDoc.data();
+
+      const rideUsers = ride.rideParticipants;
+
+      if (rideUsers.includes(userId)) {
+        enqueueSnackbar('You are already in this ride', { variant: 'error' });
+      } else {
+        rideUsers.push(userId);
+
+        await setDoc(rideRef, {
+          ...ride,
+          rideParticipants: rideUsers,
+        });
+
+        enqueueSnackbar('You have joined the ride', { variant: 'success' });
+      }
+    },
+    [DB, enqueueSnackbar]
+  );
+
   const memoizedValue = useMemo(
     () => ({
       isInitialized: state.isInitialized,
@@ -191,6 +217,7 @@ export function AuthProvider({ children }) {
       logout,
       createRide,
       getRides,
+      joinRide,
     }),
     [
       state.isAuthenticated,
@@ -204,6 +231,7 @@ export function AuthProvider({ children }) {
       logout,
       createRide,
       getRides,
+      joinRide,
     ]
   );
 
