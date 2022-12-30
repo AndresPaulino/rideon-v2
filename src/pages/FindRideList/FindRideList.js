@@ -9,7 +9,7 @@ import { useAuthContext } from 'hooks/useAuthContext';
 import { Typography } from '@mui/material';
 
 function FindRideList() {
-  const { getRides, joinRide, user } = useAuthContext();
+  const { getRides, joinRide, leaveRide, user } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const [rides, setRides] = useState([]);
   const navigate = useNavigate();
@@ -44,7 +44,10 @@ function FindRideList() {
                 <div>Loading...</div>
               ) : rides.length > 0 ? (
                 rides.map((ride) => (
-                  <RideCard key={ride.id} ride={ride} joinRide={() => joinRide(user.uid, ride.rideId)} />
+                  <RideCard
+                    key={ride.id}
+                    ride={ride}
+                  />
                 ))
               ) : (
                 <Box>

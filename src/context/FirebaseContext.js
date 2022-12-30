@@ -203,6 +203,33 @@ export function AuthProvider({ children }) {
     [DB, enqueueSnackbar]
   );
 
+  // LEAVE RIDE
+  const leaveRide = useCallback(
+    async (userId, rideId) => {
+      const rideRef = doc(collection(DB, 'rides'), rideId);
+      const rideDoc = await getDoc(rideRef);
+
+      const ride = rideDoc.data();
+
+      const rideUsers = ride.rideParticipants;
+
+      if (rideUsers.includes(userId)) {
+        const index = rideUsers.indexOf(userId);
+        rideUsers.splice(index, 1);
+
+        await setDoc(rideRef, {
+          ...ride,
+          rideParticipants: rideUsers,
+        });
+
+        enqueueSnackbar('You have left the ride', { variant: 'success' });
+      } else {
+        enqueueSnackbar('You are not in this ride', { variant: 'error' });
+      }
+    },
+    [DB, enqueueSnackbar]
+  );
+
   const memoizedValue = useMemo(
     () => ({
       isInitialized: state.isInitialized,
@@ -218,6 +245,7 @@ export function AuthProvider({ children }) {
       createRide,
       getRides,
       joinRide,
+      leaveRide,
     }),
     [
       state.isAuthenticated,
@@ -232,6 +260,7 @@ export function AuthProvider({ children }) {
       createRide,
       getRides,
       joinRide,
+      leaveRide,
     ]
   );
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -16,6 +16,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import FlagIcon from '@mui/icons-material/Flag';
 import InfoIcon from '@mui/icons-material/InfoOutlined';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+
+// AuthContext
+import { useAuthContext } from 'hooks/useAuthContext';
 
 const CardLeft = ({ ride }) => {
   const { rideAvatar } = ride;
@@ -126,8 +129,30 @@ const CardMiddle = ({ ride }) => {
   );
 };
 
-const CardRight = ({ ride, joinRide }) => {
+const CardRight = ({ ride }) => {
+  const { joinRide, leaveRide, user } = useAuthContext();
+
   const { rideTags, endLocation, startLocation } = ride;
+
+  const [joined, setJoined] = useState();
+
+  // check if user is in the ride
+  const isUserInRide = ride.rideParticipants.includes(user.uid);
+
+  const handleJoinRide = () => {
+    joinRide(user.uid, ride.rideId);
+    setJoined(true);
+  };
+
+  const handleLeaveRide = () => {
+    leaveRide(user.uid, ride.rideId);
+    setJoined(false);
+  };
+
+  useEffect(() => {
+    setJoined(isUserInRide);
+  }, [isUserInRide]);
+
   const location = (location) => {
     const [street, city, state] = location.split(',');
     return (
@@ -153,9 +178,15 @@ const CardRight = ({ ride, joinRide }) => {
       }}
     >
       <Box>
-        <Button variant='contained' onClick={joinRide}>
-          Join Ride
-        </Button>
+        {joined ? (
+          <Button variant='contained' color='secondary' onClick={handleLeaveRide}>
+            Leave Ride
+          </Button>
+        ) : (
+          <Button variant='contained' onClick={handleJoinRide}>
+            Join Ride
+          </Button>
+        )}
       </Box>
       <Box pt={4} display={'flex'}>
         <FlagIcon sx={{ mr: 1 }} />
@@ -195,7 +226,7 @@ const CardRight = ({ ride, joinRide }) => {
   );
 };
 
-export default function RideCard({ ride, joinRide }) {
+export default function RideCard({ ride }) {
   return (
     <Card
       sx={{
@@ -226,7 +257,7 @@ export default function RideCard({ ride, joinRide }) {
           <CardLeft ride={ride} />
           <CardMiddle ride={ride} />
           <Box sx={{ flexGrow: 1 }} />
-          <CardRight ride={ride} joinRide={joinRide} />
+          <CardRight ride={ride} />
         </Grid>
       </CardContent>
     </Card>
