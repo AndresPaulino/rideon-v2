@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { RideCard, FilterOptions, TopBar } from './components';
 import { useAuthContext } from 'hooks/useAuthContext';
+import { Typography } from '@mui/material';
 
 function FindRideList() {
   const { getRides } = useAuthContext();
@@ -13,11 +14,18 @@ function FindRideList() {
   const [rides, setRides] = useState([]);
   const navigate = useNavigate();
 
+  // determine if rideDate is in the past
+  const isPast = (date) => {
+    const today = new Date();
+    const rideDate = new Date(date);
+    return rideDate < today;
+  };
+
   useEffect(() => {
     const fetchRides = async () => {
       setLoading(true);
       const rides = await getRides();
-      setRides(rides);
+      setRides(rides.filter((ride) => !isPast(ride.rideDate)));
       setLoading(false);
     };
     fetchRides();
@@ -35,14 +43,26 @@ function FindRideList() {
             <Grid item xs={12} lg={9}>
               {loading ? (
                 <div>Loading...</div>
+              ) : rides.length > 0 ? (
+                rides.map((ride) => (
+                  <RideCard key={ride.id} ride={ride} onClick={() => navigate(`/find-ride/${ride.id}`)} />
+                ))
               ) : (
-                rides.map(
-                  (ride) => (
-                    // eslint-disable-next-line no-sequences
-                    console.log(ride),
-                    (<RideCard key={ride.rideId} ride={ride} onClick={() => navigate(`/app/rides/${ride.rideId}`)} />)
-                  )
-                )
+                <Box>
+                  <Typography
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: '100vh',
+                    }}
+                    variant='h4'
+                    color='text.secondary'
+                    gutterBottom
+                  >
+                    No rides found
+                  </Typography>
+                </Box>
               )}
             </Grid>
           </Grid>

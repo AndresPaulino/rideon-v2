@@ -18,8 +18,6 @@ import FlagIcon from '@mui/icons-material/Flag';
 import InfoIcon from '@mui/icons-material/InfoOutlined';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
-const mockTags = ['tag1', 'tag2', 'tag3', 'tag4'];
-
 const CardLeft = ({ ride }) => {
   const { rideAvatar } = ride;
   return (
@@ -53,6 +51,15 @@ const CardMiddle = ({ ride }) => {
     return timeValue;
   };
 
+  // calculate days left until rideDate
+  const daysLeft = (date) => {
+    const today = new Date();
+    const rideDate = new Date(date);
+    const diffTime = Math.abs(rideDate - today);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   return (
     <Grid item>
       <Grid
@@ -81,7 +88,7 @@ const CardMiddle = ({ ride }) => {
             }}
           >
             <Grid item minWidth={150}>
-              <Chip icon={<ScheduleIcon />} label='16 days left' />
+              <Chip icon={<ScheduleIcon />} label={`${daysLeft(rideDate)} days left`} />
             </Grid>
             <Grid item minWidth={150} display={'flex'}>
               <InfoIcon sx={{ mr: 1 }} />
@@ -121,7 +128,18 @@ const CardMiddle = ({ ride }) => {
 };
 
 const CardRight = ({ ride }) => {
-  const { rideTags } = ride;
+  const { rideTags, endLocation, startLocation } = ride;
+  const location = (location) => {
+    const [street, city, state] = location.split(',');
+    return (
+      <>
+        {street}
+        <br />
+        {city}, {state}
+      </>
+    );
+  };
+
   const handleClick = () => {
     alert('You clicked the Chip.');
   };
@@ -140,18 +158,14 @@ const CardRight = ({ ride }) => {
       </Box>
       <Box pt={4} display={'flex'}>
         <FlagIcon sx={{ mr: 1 }} />
-        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'right' }} color='text.secondary' gutterBottom>
-          14752 SW 26th St,
-          <br />
-          Miami, FL 33175
+        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'left' }} color='text.secondary' gutterBottom>
+          {location(startLocation)}
         </Typography>
       </Box>
       <Box pt={2} display={'flex'}>
         <SportsScoreIcon sx={{ mr: 1 }} />
-        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'right' }} color='text.secondary' gutterBottom>
-          14752 SW 26th St,
-          <br />
-          Miami, FL 33175
+        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'left' }} color='text.secondary' gutterBottom>
+          {location(endLocation)}
         </Typography>
       </Box>
       <Box
@@ -166,7 +180,7 @@ const CardRight = ({ ride }) => {
         }}
       >
         <LocalOfferIcon fontSize='small' sx={{ mr: 1, my: 'auto' }} />
-        {mockTags.map((tag) => (
+        {rideTags.map((tag) => (
           <Chip
             label={tag}
             onClick={handleClick}
