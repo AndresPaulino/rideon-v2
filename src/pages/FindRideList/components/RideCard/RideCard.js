@@ -37,7 +37,7 @@ const CardLeft = ({ ride }) => {
   );
 };
 
-const CardMiddle = ({ ride }) => {
+const CardMiddle = ({ ride, participants }) => {
   const { rideTitle, rideDate, rideParticipants, rideTime } = ride;
   // change rideDate to date format
   const date = new Date(rideDate).toLocaleDateString('en-US', {
@@ -119,7 +119,7 @@ const CardMiddle = ({ ride }) => {
             <Grid item minWidth={150} display={'flex'}>
               <PersonIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
-                {rideParticipants.length} participants
+                {participants} participants
               </Typography>
             </Grid>
           </Grid>
@@ -129,7 +129,7 @@ const CardMiddle = ({ ride }) => {
   );
 };
 
-const CardRight = ({ ride }) => {
+const CardRight = ({ ride, setParticipants }) => {
   const { joinRide, leaveRide, user } = useAuthContext();
 
   const { rideTags, endLocation, startLocation } = ride;
@@ -142,10 +142,13 @@ const CardRight = ({ ride }) => {
   const handleJoinRide = () => {
     joinRide(user.uid, ride.rideId);
     setJoined(true);
+    setParticipants((prev) => prev + 1);
   };
 
   const handleLeaveRide = () => {
     leaveRide(user.uid, ride.rideId);
+    setJoined(false);
+    setParticipants((prev) => prev - 1);
   };
 
   useEffect(() => {
@@ -226,6 +229,14 @@ const CardRight = ({ ride }) => {
 };
 
 export default function RideCard({ ride }) {
+  const { rideParticipants } = ride;
+
+  const [participants, setParticipants] = useState(rideParticipants.length);
+
+  useEffect(() => {
+    setParticipants(rideParticipants.length);
+  }, [rideParticipants]);
+
   return (
     <Card
       sx={{
@@ -254,9 +265,9 @@ export default function RideCard({ ride }) {
           }}
         >
           <CardLeft ride={ride} />
-          <CardMiddle ride={ride} />
+          <CardMiddle ride={ride} participants={participants} />
           <Box sx={{ flexGrow: 1 }} />
-          <CardRight ride={ride} />
+          <CardRight ride={ride} setParticipants={setParticipants} />
         </Grid>
       </CardContent>
     </Card>
