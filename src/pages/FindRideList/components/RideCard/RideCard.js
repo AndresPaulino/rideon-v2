@@ -146,7 +146,6 @@ const CardRight = ({ ride }) => {
 
   const handleLeaveRide = () => {
     leaveRide(user.uid, ride.rideId);
-    setJoined(false);
   };
 
   useEffect(() => {

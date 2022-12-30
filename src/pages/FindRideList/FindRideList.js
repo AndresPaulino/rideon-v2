@@ -43,12 +43,7 @@ function FindRideList() {
               {loading ? (
                 <div>Loading...</div>
               ) : rides.length > 0 ? (
-                rides.map((ride) => (
-                  <RideCard
-                    key={ride.id}
-                    ride={ride}
-                  />
-                ))
+                rides.map((ride) => <RideCard key={ride.id} ride={ride} />)
               ) : (
                 <Box>
                   <Typography
