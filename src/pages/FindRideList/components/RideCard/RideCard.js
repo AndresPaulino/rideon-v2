@@ -20,7 +20,8 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const mockTags = ['tag1', 'tag2', 'tag3', 'tag4'];
 
-const CardLeft = () => {
+const CardLeft = ({ ride }) => {
+  const { rideAvatar } = ride;
   return (
     <Grid item>
       <Avatar
@@ -30,13 +31,28 @@ const CardLeft = () => {
           bgcolor: 'primary.main',
         }}
       >
-        R
+        {rideAvatar}
       </Avatar>
     </Grid>
   );
 };
 
-const CardMiddle = () => {
+const CardMiddle = ({ ride }) => {
+  const { rideTitle, rideDate, rideParticipants, rideTime } = ride;
+  // change rideDate to date format
+  const date = new Date(rideDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+
+  // change 24h rideTime to time 12 format
+  const time = (time) => {
+    const [hours, minutes] = time.split(':');
+    const timeValue = `${hours > 12 ? hours - 12 : hours}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
+    return timeValue;
+  };
+
   return (
     <Grid item>
       <Grid
@@ -51,7 +67,7 @@ const CardMiddle = () => {
       >
         <Grid item>
           <Typography xs={12} fontSize={38} color='text.secondary' gutterBottom>
-            Ride Title
+            {rideTitle}
           </Typography>
         </Grid>
         <Grid item>
@@ -69,20 +85,8 @@ const CardMiddle = () => {
             </Grid>
             <Grid item minWidth={150} display={'flex'}>
               <InfoIcon sx={{ mr: 1 }} />
-              <Typography
-                xs={4}
-                sx={{
-                  fontSize: 16,
-                  cursor: 'pointer',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                    color: 'primary.main',
-                  },
-                }}
-                color='text.secondary'
-                gutterBottom
-              >
-                View Details
+              <Typography xs={4} color='text.secondary' gutterBottom>
+                {time(rideTime)}
               </Typography>
             </Grid>
           </Grid>
@@ -100,13 +104,13 @@ const CardMiddle = () => {
             <Grid item minWidth={150} display={'flex'}>
               <CalendarMonthIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
-                Dec 24, 2022
+                {date}
               </Typography>
             </Grid>
             <Grid item minWidth={150} display={'flex'}>
               <PersonIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
-                22 participants
+                {rideParticipants} participants
               </Typography>
             </Grid>
           </Grid>
@@ -116,7 +120,8 @@ const CardMiddle = () => {
   );
 };
 
-const CardRight = () => {
+const CardRight = ({ ride }) => {
+  const { rideTags } = ride;
   const handleClick = () => {
     alert('You clicked the Chip.');
   };
