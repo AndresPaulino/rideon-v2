@@ -42,7 +42,7 @@ const CreateRideForm = () => {
       rideId: uuidv4(),
       rideUserId: user.uid,
       rideTitle: values.title,
-      rideParticipants: 1,
+      rideParticipants: [user.uid],
       rideTime: values.time,
       rideAvatar: user.photoURL,
       rideTags: values.rideTags.map((tag) => tag.toLowerCase()),
