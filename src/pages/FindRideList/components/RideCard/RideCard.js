@@ -1,7 +1,6 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -18,9 +17,11 @@ import FlagIcon from '@mui/icons-material/Flag';
 import InfoIcon from '@mui/icons-material/InfoOutlined';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
-const mockTags = ['tag1', 'tag2', 'tag3', 'tag4'];
+// AuthContext
+import { useAuthContext } from 'hooks/useAuthContext';
 
-const CardLeft = () => {
+const CardLeft = ({ ride }) => {
+  const { rideAvatar } = ride;
   return (
     <Grid item>
       <Avatar
@@ -30,13 +31,37 @@ const CardLeft = () => {
           bgcolor: 'primary.main',
         }}
       >
-        R
+        {rideAvatar}
       </Avatar>
     </Grid>
   );
 };
 
-const CardMiddle = () => {
+const CardMiddle = ({ ride, participants }) => {
+  const { rideTitle, rideDate, rideParticipants, rideTime } = ride;
+  // change rideDate to date format
+  const date = new Date(rideDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+
+  // change 24h rideTime to time 12 format
+  const time = (time) => {
+    const [hours, minutes] = time.split(':');
+    const timeValue = `${hours > 12 ? hours - 12 : hours}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
+    return timeValue;
+  };
+
+  // calculate days left until rideDate
+  const daysLeft = (date) => {
+    const today = new Date();
+    const rideDate = new Date(date);
+    const diffTime = Math.abs(rideDate - today);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   return (
     <Grid item>
       <Grid
@@ -51,7 +76,7 @@ const CardMiddle = () => {
       >
         <Grid item>
           <Typography xs={12} fontSize={38} color='text.secondary' gutterBottom>
-            Ride Title
+            {rideTitle}
           </Typography>
         </Grid>
         <Grid item>
@@ -65,24 +90,12 @@ const CardMiddle = () => {
             }}
           >
             <Grid item minWidth={150}>
-              <Chip icon={<ScheduleIcon />} label='16 days left' />
+              <Chip icon={<ScheduleIcon />} label={`${daysLeft(rideDate)} days left`} />
             </Grid>
             <Grid item minWidth={150} display={'flex'}>
               <InfoIcon sx={{ mr: 1 }} />
-              <Typography
-                xs={4}
-                sx={{
-                  fontSize: 16,
-                  cursor: 'pointer',
-                  '&:hover': {
-                    textDecoration: 'underline',
-                    color: 'primary.main',
-                  },
-                }}
-                color='text.secondary'
-                gutterBottom
-              >
-                View Details
+              <Typography xs={4} color='text.secondary' gutterBottom>
+                {time(rideTime)}
               </Typography>
             </Grid>
           </Grid>
@@ -100,13 +113,13 @@ const CardMiddle = () => {
             <Grid item minWidth={150} display={'flex'}>
               <CalendarMonthIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
-                Dec 24, 2022
+                {date}
               </Typography>
             </Grid>
             <Grid item minWidth={150} display={'flex'}>
               <PersonIcon sx={{ mr: 1 }} />
               <Typography xs={4} sx={{ fontSize: 16 }} color='text.secondary' gutterBottom>
-                22 participants
+                {participants} participants
               </Typography>
             </Grid>
           </Grid>
@@ -116,7 +129,43 @@ const CardMiddle = () => {
   );
 };
 
-const CardRight = () => {
+const CardRight = ({ ride, setParticipants }) => {
+  const { joinRide, leaveRide, user } = useAuthContext();
+
+  const { rideTags, endLocation, startLocation } = ride;
+
+  const [joined, setJoined] = useState();
+
+  // check if user is in the ride
+  const isUserInRide = ride.rideParticipants.includes(user.uid);
+
+  const handleJoinRide = () => {
+    joinRide(user.uid, ride.rideId);
+    setJoined(true);
+    setParticipants((prev) => prev + 1);
+  };
+
+  const handleLeaveRide = () => {
+    leaveRide(user.uid, ride.rideId);
+    setJoined(false);
+    setParticipants((prev) => prev - 1);
+  };
+
+  useEffect(() => {
+    setJoined(isUserInRide);
+  }, [isUserInRide]);
+
+  const location = (location) => {
+    const [street, city, state] = location.split(',');
+    return (
+      <>
+        {street}
+        <br />
+        {city}, {state}
+      </>
+    );
+  };
+
   const handleClick = () => {
     alert('You clicked the Chip.');
   };
@@ -131,22 +180,26 @@ const CardRight = () => {
       }}
     >
       <Box>
-        <Button variant='contained'>Join Ride</Button>
+        {joined ? (
+          <Button variant='contained' color='secondary' onClick={handleLeaveRide}>
+            Leave Ride
+          </Button>
+        ) : (
+          <Button variant='contained' onClick={handleJoinRide}>
+            Join Ride
+          </Button>
+        )}
       </Box>
       <Box pt={4} display={'flex'}>
         <FlagIcon sx={{ mr: 1 }} />
-        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'right' }} color='text.secondary' gutterBottom>
-          14752 SW 26th St,
-          <br />
-          Miami, FL 33175
+        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'left' }} color='text.secondary' gutterBottom>
+          {location(startLocation)}
         </Typography>
       </Box>
       <Box pt={2} display={'flex'}>
         <SportsScoreIcon sx={{ mr: 1 }} />
-        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'right' }} color='text.secondary' gutterBottom>
-          14752 SW 26th St,
-          <br />
-          Miami, FL 33175
+        <Typography xs={4} sx={{ fontSize: 16, textAlign: 'left' }} color='text.secondary' gutterBottom>
+          {location(endLocation)}
         </Typography>
       </Box>
       <Box
@@ -161,7 +214,7 @@ const CardRight = () => {
         }}
       >
         <LocalOfferIcon fontSize='small' sx={{ mr: 1, my: 'auto' }} />
-        {mockTags.map((tag) => (
+        {rideTags.map((tag) => (
           <Chip
             label={tag}
             onClick={handleClick}
@@ -176,6 +229,14 @@ const CardRight = () => {
 };
 
 export default function RideCard({ ride }) {
+  const { rideParticipants } = ride;
+
+  const [participants, setParticipants] = useState(rideParticipants.length);
+
+  useEffect(() => {
+    setParticipants(rideParticipants.length);
+  }, [rideParticipants]);
+
   return (
     <Card
       sx={{
@@ -204,9 +265,9 @@ export default function RideCard({ ride }) {
           }}
         >
           <CardLeft ride={ride} />
-          <CardMiddle ride={ride} />
+          <CardMiddle ride={ride} participants={participants} />
           <Box sx={{ flexGrow: 1 }} />
-          <CardRight ride={ride} />
+          <CardRight ride={ride} setParticipants={setParticipants} />
         </Grid>
       </CardContent>
     </Card>
